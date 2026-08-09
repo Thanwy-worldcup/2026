@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المنتخبات</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="brand">
+      <img src="https://placehold.co/92x92/FFFFFF/2158D6?text=%F0%9F%8F%86" alt="لوجو المؤتمر">
+      <span class="brand-name">مؤتمر شباب ثانوي</span>
+    </div>
+    <nav class="main-nav">
+      <a href="index.html">الرئيسية</a>
+      <a href="teams.html">المنتخبات</a>
+      <a href="schedule.html">الأنشطة والمواعيد</a>
+      <a href="rules.html">اللوائح</a>
+      <a href="gallery.html">معرض الصور</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="hero-icon">⚽</div>
+    <h2>المنتخبات</h2>
+    <p class="verse">
+      العالم يجري وراء كأس يفنى... أما نحن فنجري نحو إكليل لا يفنى
+      <span class="ref">(١ كورنثوس ٩: ٢٥)</span>
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="teams-grid" data-teams-grid>
+      <p class="empty-state">جاري تحميل بيانات المنتخبات...</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">النقاط والترتيب بتتحدث تلقائيًا كل ما تعدّل تاب "المنتخبات" في الشيت</div>
+</footer>
+
+<script src="assets/app.js"></script>
+<script>
+  markActiveNav();
+  fetchTournamentData().then(data => renderTeamsPage(data.teams));
+</script>
+</body>
+</html>
