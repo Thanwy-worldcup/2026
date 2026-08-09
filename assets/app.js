@@ -43,10 +43,10 @@ function markActiveNav() {
 // ---------- تحديد لون ورمز كل فريق من اسمه ----------
 function teamColor(name) {
   if (!name) return 'var(--gray-team)';
-  if (name.includes('أحمر')) return 'var(--red-team)';
-  if (name.includes('أزرق')) return 'var(--blue-team)';
-  if (name.includes('أخضر')) return 'var(--green-team)';
-  if (name.includes('أصفر')) return 'var(--yellow-team)';
+  if (name.includes('حمر')) return 'var(--red-team)';
+  if (name.includes('زرق')) return 'var(--blue-team)';
+  if (name.includes('خضر')) return 'var(--green-team)';
+  if (name.includes('صفر')) return 'var(--yellow-team)';
   return 'var(--gray-team)';
 }
 
