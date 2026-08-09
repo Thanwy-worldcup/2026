@@ -65,7 +65,7 @@ a { color: inherit; text-decoration: none; }
 .brand { display: flex; align-items: center; gap: 10px; }
 
 .brand img {
-  width: 50px;
+  width: 80px;
   height: 50px;
   object-fit: contain;
   border-radius: 50%;
