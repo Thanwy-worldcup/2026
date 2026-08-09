@@ -82,6 +82,7 @@ nav.main-nav {
   gap: 6px;
   font-family: var(--font-display);
   font-size: 1rem;
+   brand-sub { font-size: 0.72rem; color: var(--steel); margin-top: 2px; }
 }
 
 nav.main-nav a {
