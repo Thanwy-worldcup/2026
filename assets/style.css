@@ -697,8 +697,14 @@ nav.main-nav a.active {
   box-shadow: 0 4px 16px rgba(20,51,94,0.08);
 }
 
-.gallery-grid img { width: 100%; height: auto; display: block; transition: transform 0.25s; }
+.gallery-grid img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.25s; }
 .gallery-grid figure:hover img { transform: scale(1.04); }
+
+/* أحجام بلاطات مختلفة بترجع دوريًا عشان شكل الموزاييك يبان مهما كانت نسب الصور الأصلية */
+.gallery-grid figure.size-a { aspect-ratio: 3 / 4; }
+.gallery-grid figure.size-b { aspect-ratio: 1 / 1; }
+.gallery-grid figure.size-c { aspect-ratio: 4 / 3; }
+.gallery-grid figure.size-d { aspect-ratio: 3 / 5; }
 
 @media (max-width: 900px) {
   .gallery-grid { column-count: 3; }
