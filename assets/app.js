@@ -2,7 +2,7 @@
 // الإعدادات - غيّر القيمة دي برابط الـ Web App بتاعك بعد النشر
 // ============================================================
 const CONFIG = {
-  API_URL: 'https://script.google.com/macros/library/d/1hoB_OcbDtGVOBP7_k8038gvwDTa15GRb_KaEdVP4ZoKYZCniTrSPMpb7/1',
+  API_URL: 'https://script.google.com/macros/s/AKfycbwQEDCagBckAaY4Z6FVMEzfMokY84lxWs_GBpd9FC_4xePNkFMLZfvievCz792BNE2A/exec',
 };
 
 let _dataCache = null;
