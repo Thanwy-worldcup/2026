@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الأنشطة والمواعيد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="brand">
+      <img src="assets/img/logo.jpg" alt="لوجو المؤتمر">
+      <div>
+        <span class="brand-name">مؤتمر شباب ثانوي</span>
+        <div class="brand-sub">كنيسة البابا اثناسيوس الرسولي - بقليوب المحطة</div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <a href="index.html">الرئيسية</a>
+      <a href="teams.html">المنتخبات</a>
+      <a href="schedule.html">الأنشطة والمواعيد</a>
+      <a href="rules.html">اللوائح</a>
+      <a href="gallery.html">معرض الصور</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <img class="hero-deco side-a" src="assets/img/confetti.png" alt="">
+  <img class="hero-deco side-b" src="assets/img/laurel.png" alt="">
+  <div class="container">
+    <div class="hero-icon">📅</div>
+    <h2>الأنشطة والمواعيد</h2>
+    <p class="verse">برنامج المؤتمر كامل، بمواعيده وحالته أول بأول</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="fixtures-list" data-fixtures-list>
+      <p class="empty-state">جاري تحميل البرنامج...</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">البرنامج بيتحدث تلقائيًا كل ما تعدّل تاب "الأنشطة" في الشيت</div>
+</footer>
+
+<script src="assets/app.js"></script>
+<script>
+  markActiveNav();
+  fetchTournamentData().then(data => renderSchedule(data.schedule));
+</script>
+</body>
+</html>
