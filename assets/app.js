@@ -170,8 +170,9 @@ function renderGallery(photos) {
     el.innerHTML = `<p class="empty-state">لسه مفيش صور مرفوعة في مجلد درايف</p>`;
     return;
   }
-  el.innerHTML = photos.map(p => `
-    <figure onclick="openLightbox('${p.url}')">
+  const sizes = ['size-a', 'size-c', 'size-b', 'size-a', 'size-c', 'size-d', 'size-b', 'size-c'];
+  el.innerHTML = photos.map((p, i) => `
+    <figure class="${sizes[i % sizes.length]}" onclick="openLightbox('${p.url}')">
       <img src="${p.url}" alt="${p.name || ''}" loading="lazy">
     </figure>
   `).join('');
