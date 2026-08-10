@@ -149,7 +149,36 @@ function renderTeamsPage(teams) {
   }).join('');
 }
 
-// ---------- الأنشطة والمواعيد (شكل شريط واحد لكل نشاط) ----------
+// ---------- قاموس مطابقة اسم النشاط بالأيقونة المناسبة ----------
+// لو كتبت في الشيت اسم نشاط فيه أي كلمة من دول، الأيقونة المرتبطة بيها هتظهر أوتوماتيك
+const ACTIVITY_ICONS = [
+  { keys: ['صلاة'], icon: 'prayer' },
+  { keys: ['فطار', 'إفطار'], icon: 'breakfast' },
+  { keys: ['روحية', 'عظة', 'كلمة'], icon: 'bible' },
+  { keys: ['راحة', 'استراحة'], icon: 'rest' },
+  { keys: ['ورشة عمل', 'ورشة إبداعية', 'ورشة'], icon: 'idea' },
+  { keys: ['scope', 'سكوب'], icon: 'scope' },
+  { keys: ['نشاط حر', 'رسم', 'فني'], icon: 'art' },
+  { keys: ['مباراة', 'ماتش', 'كورة', 'تحدي'], icon: 'trophy' },
+  { keys: ['جيم', 'رياضة', 'تمرين'], icon: 'gym' },
+  { keys: ['عشاء'], icon: 'dinner' },
+  { keys: ['العاب', 'ألعاب', 'game'], icon: 'games' },
+  { keys: ['جلسة مسائية', 'سهرة', 'مسائية'], icon: 'evening' },
+  { keys: ['مسبح', 'سباحة'], icon: 'pool' },
+  { keys: ['قهوة', 'ترحيب', 'استقبال'], icon: 'coffee' },
+];
+
+function activityIconUrl(activityName) {
+  const name = (activityName || '').trim();
+  for (const entry of ACTIVITY_ICONS) {
+    if (entry.keys.some(k => name.includes(k))) {
+      return `assets/img/icons/${entry.icon}.png`;
+    }
+  }
+  return null; // مفيش تطابق -> هيتعرض رمز افتراضي
+}
+
+// ---------- الأنشطة والمواعيد (مقسّمة بالأيام - تايم لاين) ----------
 function renderSchedule(schedule) {
   const el = document.querySelector('[data-fixtures-list]');
   if (!el) return;
@@ -157,22 +186,62 @@ function renderSchedule(schedule) {
     el.innerHTML = `<p class="empty-state">لسه مفيش أنشطة مسجلة في الشيت</p>`;
     return;
   }
-  const statusClass = s => (s === 'انتهى' ? 'done' : 'upcoming');
+
   const sorted = [...schedule].sort((a, b) => a.ts - b.ts);
 
-  el.innerHTML = sorted.map(a => `
-    <div class="next-match">
-      <div class="meta">
-        <span>📅 ${a.date}</span>
-        <span>🕔 ${a.time}</span>
+  // ترقيم الأيام حسب أول ظهور لكل تاريخ (مش اسم اليوم في الأسبوع)
+  const dayNumberByDate = {};
+  let dayCounter = 0;
+  sorted.forEach(a => {
+    const key = a.date || 'بدون تاريخ';
+    if (!(key in dayNumberByDate)) {
+      dayCounter++;
+      dayNumberByDate[key] = dayCounter;
+    }
+  });
+  const ARABIC_ORDINALS = ['الأول', 'الثاني', 'الثالث', 'الرابع', 'الخامس', 'السادس', 'السابع', 'الثامن'];
+
+  const groups = {};
+  sorted.forEach(a => {
+    const key = a.date || 'بدون تاريخ';
+    (groups[key] = groups[key] || []).push(a);
+  });
+
+  el.innerHTML = Object.entries(groups).map(([date, items]) => {
+    const dayNum = dayNumberByDate[date];
+    const dayLabel = ARABIC_ORDINALS[dayNum - 1] || ('#' + dayNum);
+    return `
+    <div class="day-card">
+      <div class="day-header">
+        <span>📅</span> اليوم ${dayLabel}
+        <span class="day-date">${date}</span>
       </div>
-      <div class="versus">
-        <span>${a.activity}</span>
-        ${a.team ? `<span class="vs-label">${a.team}</span>` : ''}
+      <div class="timeline">
+        ${items.map(a => {
+          const iconUrl = activityIconUrl(a.activity);
+          const dotClass = a.status === 'انتهى' ? 'done' : 'upcoming';
+          return `
+          <div class="timeline-item">
+            <div class="timeline-icon">
+              ${iconUrl
+                ? `<img src="${iconUrl}" alt="">`
+                : `<span class="timeline-icon-fallback">🗓️</span>`}
+            </div>
+            <div class="timeline-body">
+              <div class="timeline-top">
+                <span class="timeline-activity">${a.activity}${a.team ? ' · ' + a.team : ''}</span>
+                <span class="timeline-dot ${dotClass}"></span>
+              </div>
+              <div class="timeline-time">${a.time || ''}</div>
+              ${a.notes ? `<div class="timeline-notes">${a.notes}</div>` : ''}
+            </div>
+          </div>
+        `;
+        }).join('')}
       </div>
-      <span class="status-pill ${statusClass(a.status)}">${a.status}</span>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 // ---------- أقرب نشاط قادم (يستخدم في الرئيسية) ----------

@@ -621,6 +621,112 @@ nav.main-nav a.active {
 .status-pill.done { background: rgba(30,158,90,0.12); color: var(--green-team); }
 .status-pill.upcoming { background: rgba(242,183,5,0.18); color: #8a6a05; }
 
+/* ---------- الأنشطة والمواعيد (كروت أيام + تايم لاين) ---------- */
+
+.day-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.day-card {
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(20,51,94,0.08);
+}
+
+.day-header {
+  background: var(--navy);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.day-card:nth-of-type(even) .day-header { background: var(--blue); }
+
+.day-header .day-date {
+  margin-inline-start: auto;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  opacity: 0.85;
+}
+
+.timeline {
+  padding: 18px 18px 6px;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  right: 39px;
+  width: 2px;
+  background: var(--line);
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.timeline-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--sky);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.timeline-icon img { width: 100%; height: 100%; object-fit: cover; }
+.timeline-icon-fallback { font-size: 1.2rem; }
+
+.timeline-body { flex: 1; min-width: 0; padding-top: 4px; }
+
+.timeline-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.timeline-activity { font-weight: 700; color: var(--navy); font-size: 0.95rem; }
+
+.timeline-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.timeline-dot.upcoming { background: var(--gold); box-shadow: 0 0 0 3px rgba(242,183,5,0.2); }
+.timeline-dot.done { background: var(--steel); opacity: 0.5; }
+
+.timeline-time {
+  font-family: var(--font-display);
+  color: var(--blue);
+  font-size: 0.82rem;
+  margin-top: 2px;
+}
+
+.timeline-notes { font-size: 0.78rem; color: var(--steel); margin-top: 2px; }
+
 /* ---------- اللوائح ---------- */
 
 .rules-icon-grid {
@@ -896,6 +1002,9 @@ img { max-width: 100%; height: auto; display: block; }
   .cards-grid, .committee-row { grid-template-columns: 1fr; }
 
   .gallery-grid { column-count: 2; column-gap: 8px; }
+
+  .day-columns { grid-template-columns: 1fr; gap: 14px; }
+  .timeline-icon { width: 38px; height: 38px; }
 
   .section-title { font-size: 1.05rem; gap: 6px; }
   .laurel-icon { width: 30px; }
