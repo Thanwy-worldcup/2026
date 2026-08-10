@@ -38,7 +38,10 @@ function toggleNav() {
   const btn = document.querySelector('.nav-toggle');
   if (!nav) return;
   const isOpen = nav.classList.toggle('open');
-  if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  if (btn) {
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    btn.textContent = isOpen ? '✕' : '☰';
+  }
 }
 
 // ---------- تفعيل رابط الناف الحالي ----------
