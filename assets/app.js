@@ -62,6 +62,24 @@ function teamColor(name) {
   return 'var(--gray-team)';
 }
 
+// نسخة الألوان بصيغة hex خام (مستخدمة في كارت الترتيب على الموبايل لعمل تدرج شفاف)
+function teamColorHex(name) {
+  if (!name) return '#64748B';
+  if (name.includes('حمر')) return '#E53935';
+  if (name.includes('زرق')) return '#1E63F2';
+  if (name.includes('خضر')) return '#1FA34A';
+  if (name.includes('صفر')) return '#F4B400';
+  return '#64748B';
+}
+
+function hexToRgba(hex, alpha) {
+  const h = hex.replace('#', '');
+  const r = parseInt(h.substring(0, 2), 16);
+  const g = parseInt(h.substring(2, 4), 16);
+  const b = parseInt(h.substring(4, 6), 16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+
 function initials(name) {
   return (name || '').trim().charAt(0);
 }
@@ -77,8 +95,11 @@ function renderStandingsSummary(teams) {
   const sorted = [...teams].sort((a, b) => b.total - a.total);
   const rankClasses = ['r1', 'r2', 'r3', 'r4'];
 
-  el.innerHTML = sorted.map((t, i) => `
-    <div class="standing-chip">
+  el.innerHTML = sorted.map((t, i) => {
+    const hex = teamColorHex(t.name);
+    const chipStyle = `--chip-color:${hex}; --chip-bg:${hexToRgba(hex, 0.06)}; --chip-border:${hexToRgba(hex, 0.3)};`;
+    return `
+    <div class="standing-chip" style="${chipStyle}">
       <div class="rank-badge ${rankClasses[i] || ''}">${i + 1}</div>
       <div class="shield" style="background:${teamColor(t.name)}">★</div>
       <div class="chip-info">
@@ -86,7 +107,8 @@ function renderStandingsSummary(teams) {
         <span class="team-points">${t.total} نقطة</span>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 // ---------- صفحة المنتخبات (كل فريق ولاعبينه) ----------
