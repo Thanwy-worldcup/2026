@@ -152,19 +152,29 @@ function renderTeamsPage(teams) {
 // ---------- قاموس مطابقة اسم النشاط بالأيقونة المناسبة ----------
 // لو كتبت في الشيت اسم نشاط فيه أي كلمة من دول، الأيقونة المرتبطة بيها هتظهر أوتوماتيك
 const ACTIVITY_ICONS = [
-  { keys: ['صلاة'], icon: 'prayer' },
+  // المباريات الأربعة - كل مباراة أيقونتها الخاصة (لازم تتفحص قبل قاعدة "مباراة" العامة)
+  { keys: ['أول مباراة', 'اول مباراة'], icon: 'match1_strike' },
+  { keys: ['المباراة الثانية'], icon: 'match2_keeper' },
+  { keys: ['المباراة الثالثة'], icon: 'match3_dribble' },
+  { keys: ['المباراة الرابعة'], icon: 'match4_tactics' },
+
+  { keys: ['صلاة', 'صلاه'], icon: 'prayer' },
   { keys: ['فطار', 'إفطار'], icon: 'breakfast' },
-  { keys: ['روحية', 'عظة', 'كلمة'], icon: 'bible' },
+  { keys: ['غذاء', 'غداء'], icon: 'breakfast' },
+  { keys: ['روحية', 'عظة'], icon: 'bible' },
   { keys: ['راحة', 'استراحة'], icon: 'rest' },
-  { keys: ['ورشة عمل', 'ورشة إبداعية', 'ورشة'], icon: 'idea' },
-  { keys: ['scope', 'سكوب'], icon: 'scope' },
+  { keys: ['تسكين'], icon: 'rest' },
+  { keys: ['ورشة عمل', 'ورشة إبداعية', 'ورشة', 'ورش'], icon: 'workshop' },
+  { keys: ['scope', 'scape', 'سكوب'], icon: 'scope' },
   { keys: ['نشاط حر', 'رسم', 'فني'], icon: 'art' },
+  { keys: ['سؤال محيرني', 'سؤال', 'مسابقة'], icon: 'idea' },
+  { keys: ['got talant', 'مواهب', 'تالنت'], icon: 'idea' },
   { keys: ['مباراة', 'ماتش', 'كورة', 'تحدي'], icon: 'trophy' },
   { keys: ['جيم', 'رياضة', 'تمرين'], icon: 'gym' },
   { keys: ['عشاء'], icon: 'dinner' },
   { keys: ['العاب', 'ألعاب', 'game'], icon: 'games' },
   { keys: ['جلسة مسائية', 'سهرة', 'مسائية'], icon: 'evening' },
-  { keys: ['مسبح', 'سباحة'], icon: 'pool' },
+  { keys: ['مسبح', 'سباحة', 'pool'], icon: 'pool' },
   { keys: ['قهوة', 'ترحيب', 'استقبال'], icon: 'coffee' },
 ];
 
