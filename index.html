@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>كأس العالم 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="brand">
+      <img src="assets/img/logo.jpg" alt="لوجو المؤتمر">
+      <div>
+        <span class="brand-name">مؤتمر شباب ثانوي</span>
+        <div class="brand-sub">كنيسة البابا اثناسيوس الرسولي - بقليوب المحطة</div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <a href="index.html">الرئيسية</a>
+      <a href="teams.html">المنتخبات</a>
+      <a href="pamphlet.html">البامفلت</a>
+      <a href="schedule.html">الأنشطة والمواعيد</a>
+      <a href="rules.html">اللوائح</a>
+      <a href="gallery.html">معرض الصور</a>
+    </nav>
+  </div>
+</header>
+
+<!-- هذا القسم ثابت بالكامل — عدّل النص هنا مباشرة لو احتجت -->
+<section class="page-hero">
+  <div class="container hero-flex">
+    <div class="hero-side"><img src="assets/img/trophy_ball.png" alt=""></div>
+    <div class="hero-center">
+      <h2>كأس العالم <span class="accent">2026</span></h2>
+      <p class="verse">
+        العالم يجري وراء كأس يفنى... أما نحن فنجري نحو إكليل لا يفنى
+        <span class="ref">(١ كورنثوس ٩: ٢٥)</span>
+      </p>
+    </div>
+    <div class="hero-side"><img src="assets/img/group_cheering.png" alt=""></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-title">
+      <img class="laurel-icon" src="assets/img/laurel.png" alt="">
+      ترتيب المنتخبات
+      <img class="laurel-icon flip" src="assets/img/laurel.png" alt="">
+    </div>
+    <div class="standings-summary" data-standings-summary>
+      <p class="empty-state">جاري تحميل الترتيب...</p>
+    </div>
+
+    <!-- المباراة/النشاط القادم: بيتحدث أوتوماتيك من نفس بيانات صفحة الأنشطة -->
+    <div class="next-match">
+      <div class="meta" data-next-meta>
+        <span>جاري التحميل...</span>
+      </div>
+      <div class="versus" data-next-center>
+        <span></span>
+      </div>
+      <a href="schedule.html" class="section-title" style="margin:0; font-size:0.85rem;">عرض كل المواعيد ←</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">جدول الترتيب يتحدث تلقائيًا من جوجل شيت</div>
+</footer>
+
+<script src="assets/app.js"></script>
+<script>
+  markActiveNav();
+  fetchTournamentData().then(data => {
+    renderStandingsSummary(data.teams);
+    renderNextEvent(data.schedule);
+  });
+</script>
+</body>
+</html>
