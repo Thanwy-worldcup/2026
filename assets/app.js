@@ -93,20 +93,20 @@ function renderStandingsSummary(teams) {
     return;
   }
   const sorted = [...teams].sort((a, b) => b.total - a.total);
-  const rankClasses = ['r1', 'r2', 'r3', 'r4'];
 
   el.innerHTML = sorted.map((t, i) => {
     const hex = teamColorHex(t.name);
     const chipStyle = `--chip-color:${hex}; --chip-bg:${hexToRgba(hex, 0.06)}; --chip-border:${hexToRgba(hex, 0.3)};`;
     return `
-    <div class="standing-chip" style="${chipStyle}">
-      <div class="rank-badge ${rankClasses[i] || ''}">${i + 1}</div>
+    <a class="standing-chip" href="teams.html" style="${chipStyle}">
+      ${i === 0 ? `<img class="chip-crown" src="assets/img/crown.png" alt="">` : ''}
+      <div class="rank-badge">${i + 1}</div>
       <div class="shield" style="background:${teamColor(t.name)}">★</div>
       <div class="chip-info">
         <span class="team-name">${t.name}</span>
         <span class="team-points">${t.total} نقطة</span>
       </div>
-    </div>
+    </a>
   `;
   }).join('');
 }
