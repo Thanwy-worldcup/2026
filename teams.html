@@ -20,7 +20,7 @@
       </div>
     </div>
     <button class="nav-toggle" onclick="toggleNav()" aria-label="فتح القائمة" aria-expanded="false">☰</button>
-    <nav class="main-nav" id="mainNav">
+    <nav class="main-nav" id="mainNav" onclick="if(event.target===this) toggleNav()">
       <a href="index.html">الرئيسية</a>
       <a href="teams.html">المنتخبات</a>
       <a href="pamphlet.html">البامفلت</a>
