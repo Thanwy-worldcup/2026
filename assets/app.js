@@ -32,6 +32,15 @@ async function fetchGalleryPhotos() {
   }
 }
 
+// ---------- فتح/قفل قائمة الموبايل ----------
+function toggleNav() {
+  const nav = document.getElementById('mainNav');
+  const btn = document.querySelector('.nav-toggle');
+  if (!nav) return;
+  const isOpen = nav.classList.toggle('open');
+  if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+
 // ---------- تفعيل رابط الناف الحالي ----------
 function markActiveNav() {
   const current = location.pathname.split('/').pop() || 'index.html';
