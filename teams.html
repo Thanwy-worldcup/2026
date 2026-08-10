@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المنتخبات</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="brand">
+      <img src="assets/img/logo.jpg" alt="لوجو المؤتمر">
+      <div>
+        <span class="brand-name">مؤتمر شباب ثانوي</span>
+        <div class="brand-sub">كنيسة البابا اثناسيوس الرسولي - بقليوب المحطة</div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <a href="index.html">الرئيسية</a>
+      <a href="teams.html">المنتخبات</a>
+      <a href="pamphlet.html">البامفلت</a>
+      <a href="schedule.html">الأنشطة والمواعيد</a>
+      <a href="rules.html">اللوائح</a>
+      <a href="gallery.html">معرض الصور</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container hero-flex">
+    <div class="hero-side"><img src="assets/img/ball_streak.png" alt=""></div>
+    <div class="hero-center">
+      <h2>المنتخبات</h2>
+      <p class="verse">
+        العالم يجري وراء كأس يفنى... أما نحن فنجري نحو إكليل لا يفنى
+        <span class="ref">(١ كورنثوس ٩: ٢٥)</span>
+      </p>
+    </div>
+    <div class="hero-side"><img src="assets/img/ball_grass.png" alt=""></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="teams-grid" data-teams-grid>
+      <p class="empty-state">جاري تحميل بيانات المنتخبات...</p>
+    </div>
+
+    <div class="section-title" style="margin-top:40px;">
+      <img class="laurel-icon" src="assets/img/laurel.png" alt="">
+      هدافي البطولة
+      <img class="laurel-icon flip" src="assets/img/laurel.png" alt="">
+    </div>
+    <div class="podium" data-top-scorers>
+      <p class="empty-state">جاري تحميل الهدافين...</p>
+    </div>
+
+    <div class="spirit-band">
+      <div class="spirit-text">فريق واحد، هدف واحد، إكليل واحد</div>
+      <img src="assets/img/back_friends.png" alt="روح الفريق الواحد">
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">النقاط والترتيب بتتحدث تلقائيًا كل ما تعدّل تاب "المنتخبات" في الشيت</div>
+</footer>
+
+<script src="assets/app.js"></script>
+<script>
+  markActiveNav();
+  fetchTournamentData().then(data => {
+    renderTeamsPage(data.teams);
+    renderTopScorers(data.teams);
+  });
+</script>
+</body>
+</html>
