@@ -79,24 +79,39 @@ function markActiveNav() {
 }
 
 // ---------- تحديد لون ورمز كل فريق من اسمه ----------
-function teamColor(name) {
-  if (!name) return 'var(--gray-team)';
+function teamColor(team) {
+  if (!team) return 'var(--gray-team)';
+
+  if (team.color && /^#[0-9A-Fa-f]{6}$/.test(String(team.color).trim())) {
+    return String(team.color).trim();
+  }
+
+  const name = team.name || '';
+
   if (name.includes('حمر')) return 'var(--red-team)';
   if (name.includes('زرق')) return 'var(--blue-team)';
   if (name.includes('خضر')) return 'var(--green-team)';
   if (name.includes('صفر')) return 'var(--yellow-team)';
+
   return 'var(--gray-team)';
 }
 
-// نسخة الألوان بصيغة hex خام (مستخدمة في كارت الترتيب على الموبايل لعمل تدرج شفاف)
-function teamColorHex(name) {
-  if (!name) return '#64748B';
+function teamColorHex(team) {
+  if (!team) return '#64748B';
+
+  if (team.color && /^#[0-9A-Fa-f]{6}$/.test(String(team.color).trim())) {
+    return String(team.color).trim();
+  }
+
+  const name = team.name || '';
+
   if (name.includes('حمر')) return '#E53935';
   if (name.includes('زرق')) return '#1E63F2';
   if (name.includes('خضر')) return '#1FA34A';
   if (name.includes('صفر')) return '#F4B400';
+
   return '#64748B';
-}
+
 
 function hexToRgba(hex, alpha) {
   const h = hex.replace('#', '');
