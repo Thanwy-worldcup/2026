@@ -68,12 +68,13 @@
 </section>
 
 <footer class="site-footer">
-  <div class="container">النقاط والترتيب بتتحدث تلقائيًا كل ما تعدّل تاب "المنتخبات" في الشيت</div>
+  <div class="container" data-footer-verse></div>
 </footer>
 
 <script src="assets/app.js"></script>
 <script>
   markActiveNav();
+  renderFooterVerse();
   fetchTournamentData().then(data => {
     renderTeamsPage(data.teams);
     renderTopScorers(data.teams);

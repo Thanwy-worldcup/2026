@@ -52,12 +52,13 @@
 </section>
 
 <footer class="site-footer">
-  <div class="container">البرنامج بيتحدث تلقائيًا كل ما تعدّل تاب "الأنشطة" في الشيت</div>
+  <div class="container" data-footer-verse></div>
 </footer>
 
 <script src="assets/app.js"></script>
 <script>
   markActiveNav();
+  renderFooterVerse();
   fetchTournamentData().then(data => renderSchedule(data.schedule));
 </script>
 </body>

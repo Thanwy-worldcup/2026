@@ -73,12 +73,13 @@
 </section>
 
 <footer class="site-footer">
-  <div class="container">جدول الترتيب يتحدث تلقائيًا من جوجل شيت</div>
+  <div class="container" data-footer-verse></div>
 </footer>
 
 <script src="assets/app.js"></script>
 <script>
   markActiveNav();
+  renderFooterVerse();
   fetchTournamentData().then(data => {
     renderStandingsSummary(data.teams);
     renderNextEvent(data.schedule);

@@ -53,7 +53,7 @@
 </section>
 
 <footer class="site-footer">
-  <div class="container">الصور بتتسحب أوتوماتيك من مجلد جوجل درايف</div>
+  <div class="container" data-footer-verse></div>
 </footer>
 
 <div class="lightbox" data-lightbox onclick="closeLightbox()">
@@ -63,6 +63,7 @@
 <script src="assets/app.js"></script>
 <script>
   markActiveNav();
+  renderFooterVerse();
   fetchGalleryPhotos().then(renderGallery);
 </script>
 </body>
