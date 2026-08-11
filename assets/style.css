@@ -243,7 +243,10 @@ nav.main-nav a.active {
 .hero-title-row h2 { margin: 0; }
 
 .hero-icon-img {
-  width: 110px;
+  width: auto;
+  height: 100px;
+  max-width: 160px;
+  object-fit: contain;
   margin: 0 auto 10px;
   filter: drop-shadow(0 8px 16px rgba(20,51,94,0.18));
 }
