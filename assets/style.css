@@ -494,6 +494,33 @@ nav.main-nav a.active {
   color: var(--steel);
 }
 
+.live-tag {
+  display: inline-block;
+  background: var(--green-team);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-top: 2px;
+  width: fit-content;
+}
+
+.next-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--sky);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  overflow: hidden;
+}
+
+.next-icon img { width: 100%; height: 100%; object-fit: cover; }
+.next-icon .timeline-icon-fallback { font-size: 1.4rem; }
+
 .next-match .versus {
   display: flex;
   align-items: center;
@@ -717,6 +744,17 @@ nav.main-nav a.active {
 
 .timeline-dot.upcoming { background: var(--gold); box-shadow: 0 0 0 3px rgba(242,183,5,0.2); }
 .timeline-dot.done { background: var(--steel); opacity: 0.5; }
+.timeline-dot.live {
+  background: var(--green-team);
+  box-shadow: 0 0 0 3px rgba(30,158,90,0.25);
+  animation: pulse-dot 1.6s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(30,158,90,0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(30,158,90,0); }
+  100% { box-shadow: 0 0 0 0 rgba(30,158,90,0); }
+}
 
 .timeline-time {
   font-family: var(--font-display);

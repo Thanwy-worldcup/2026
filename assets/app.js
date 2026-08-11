@@ -231,7 +231,7 @@ function renderSchedule(schedule) {
       <div class="timeline">
         ${items.map(a => {
           const iconUrl = activityIconUrl(a.activity);
-          const dotClass = a.status === 'انتهى' ? 'done' : 'upcoming';
+          const dotClass = a.status === 'انتهى' ? 'done' : (a.status === 'جارٍ الآن' ? 'live' : 'upcoming');
           return `
           <div class="timeline-item">
             <div class="timeline-icon">
@@ -256,25 +256,40 @@ function renderSchedule(schedule) {
   }).join('');
 }
 
-// ---------- أقرب نشاط قادم (يستخدم في الرئيسية) ----------
+// ---------- الحدث الحالي أو الأقرب (يستخدم في الرئيسية) ----------
 function renderNextEvent(schedule) {
   const metaEl = document.querySelector('[data-next-meta]');
   const centerEl = document.querySelector('[data-next-center]');
+  const iconEl = document.querySelector('[data-next-icon]');
   if (!metaEl || !centerEl) return;
 
-  const upcoming = (schedule || []).filter(a => a.status === 'قادم').sort((a, b) => a.ts - b.ts);
-  const item = upcoming[0];
+  const list = schedule || [];
+  const live = list.filter(a => a.status === 'جارٍ الآن').sort((a, b) => a.ts - b.ts)[0];
+  const upcoming = list.filter(a => a.status === 'قادم').sort((a, b) => a.ts - b.ts)[0];
+  const item = live || upcoming;
 
   if (!item) {
     metaEl.innerHTML = '';
     centerEl.innerHTML = '<span>لا يوجد نشاط قادم حاليًا</span>';
+    if (iconEl) iconEl.innerHTML = '';
     return;
   }
 
-  metaEl.innerHTML = `<span>📅 ${item.date}</span><span>🕔 ${item.time}</span>`;
+  metaEl.innerHTML = `
+    <span>📅 ${item.date}</span>
+    <span>🕔 ${item.time}</span>
+    ${live ? '<span class="live-tag">جارٍ الآن</span>' : ''}
+  `;
   centerEl.innerHTML = item.team
     ? `<span>${item.activity}</span><span class="vs-label">${item.team}</span>`
     : `<span>${item.activity}</span>`;
+
+  if (iconEl) {
+    const url = activityIconUrl(item.activity);
+    iconEl.innerHTML = url
+      ? `<img src="${url}" alt="">`
+      : `<span class="timeline-icon-fallback">🗓️</span>`;
+  }
 }
 
 // ---------- معرض الصور ----------
