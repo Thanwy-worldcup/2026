@@ -453,6 +453,8 @@ nav.main-nav a.active {
   background: none !important;
   border-radius: 0;
   display: block;
+  direction: ltr;
+  unicode-bidi: isolate;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 3.2rem;
