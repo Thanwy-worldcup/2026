@@ -79,7 +79,7 @@
 <script src="assets/app.js"></script>
 <script>
   markActiveNav();
-  renderFooterVerse();
+  renderFooterVerse(0);
   fetchTournamentData().then(data => {
     renderStandingsSummary(data.teams);
     renderNextEvent(data.schedule);

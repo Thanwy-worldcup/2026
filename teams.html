@@ -74,7 +74,7 @@
 <script src="assets/app.js"></script>
 <script>
   markActiveNav();
-  renderFooterVerse();
+  renderFooterVerse(1);
   fetchTournamentData().then(data => {
     renderTeamsPage(data.teams);
     renderTopScorers(data.teams);
