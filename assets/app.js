@@ -48,11 +48,12 @@ const FOOTER_VERSES = [
   { text: 'لستم من العالم، بل أنا اخترتكم من العالم.', ref: 'يوحنا 15: 19' },
 ];
 
-function renderFooterVerse() {
+function renderFooterVerse(pageOffset) {
   const el = document.querySelector('[data-footer-verse]');
   if (!el) return;
   const HOURS_PER_VERSE = 2; // غيّرها لأي عدد ساعات تحب
-  const index = Math.floor(Date.now() / (HOURS_PER_VERSE * 60 * 60 * 1000)) % FOOTER_VERSES.length;
+  const timeSlot = Math.floor(Date.now() / (HOURS_PER_VERSE * 60 * 60 * 1000));
+  const index = (timeSlot + (pageOffset || 0)) % FOOTER_VERSES.length;
   const v = FOOTER_VERSES[index];
   el.innerHTML = `"${v.text}" <span class="verse-ref">(${v.ref})</span>`;
 }
