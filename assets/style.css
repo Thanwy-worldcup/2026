@@ -464,8 +464,6 @@ nav.main-nav a.active {
   flex: 0 0 auto;
 }
 
-.rank-badge::before { content: '0'; }
-
 .chip-crown {
   position: absolute;
   top: -18px;
