@@ -462,7 +462,7 @@ nav.main-nav a.active {
   color: var(--chip-color, var(--navy));
   -webkit-text-stroke: 1.5px rgba(255,255,255,0.85);
   padding-inline-start: 16px;
-  border-inline-start: 1px solid var(--chip-border, var(--line));
+  border-right: 1px solid var(--chip-border, var(--line));
   flex: 0 0 auto;
 }
 
