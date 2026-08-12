@@ -150,8 +150,8 @@ nav.main-nav a.active {
 }
 
 .page-hero .hero-icon {
-  width: 104px;
-  height: 104px;
+  width: 92px;
+  height: 92px;
   margin: 0 auto 14px;
   border-radius: 50%;
   background: var(--white);
@@ -244,8 +244,8 @@ nav.main-nav a.active {
 
 .hero-icon-img {
   width: auto;
-  height: 100px;
-  max-width: 160px;
+  height: 135px;
+  max-width: 200px;
   object-fit: contain;
   margin: 0 auto 10px;
   filter: drop-shadow(0 8px 16px rgba(20,51,94,0.18));
