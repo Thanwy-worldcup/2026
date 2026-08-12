@@ -1039,9 +1039,10 @@ img { max-width: 100%; height: auto; display: block; }
   .container { padding: 0 16px; }
 
   .page-hero {
-    background-size: contain;
+    background-image: url('img/hero-bg-mobile.jpg');
+    background-size: cover;
     background-repeat: no-repeat;
-    background-position: top center;
+    background-position: bottom center;
   }
 
   .page-hero h2 { font-size: 1.6rem; }
@@ -1123,17 +1124,11 @@ img { max-width: 100%; height: auto; display: block; }
   display: inline-block;
   white-space: nowrap;
   font-size: 0.88rem;
-  animation: ticker-scroll 22s linear infinite;
+  will-change: transform;
 }
 
-@keyframes ticker-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ticker-track span[data-ticker] { animation: none; }
-}
+.arrow-up { color: #2ECC71; font-weight: 700; }
+.arrow-down { color: #FF6B6B; font-weight: 700; }
 
 @media (max-width: 640px) {
   .ticker-label { display: none; }
