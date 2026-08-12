@@ -1118,6 +1118,7 @@ img { max-width: 100%; height: auto; display: block; }
   flex: 1;
   overflow: hidden;
   white-space: nowrap;
+  direction: ltr;
 }
 
 .ticker-track span[data-ticker] {
