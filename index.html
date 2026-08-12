@@ -88,7 +88,7 @@
   fetchTournamentData().then(data => {
     renderStandingsSummary(data.teams);
     renderNextEvent(data.schedule);
-    renderTicker(data.ticker);
+    renderTicker(data.ticker, data.schedule);
   });
 </script>
 </body>
