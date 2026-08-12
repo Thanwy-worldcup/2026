@@ -68,15 +68,17 @@ function renderTicker(changeLog, schedule) {
   const items = [];
 
   // آخر حدث تغيير في الترتيب (ممكن يكون فيه أكتر من فريق اتحرك مرة واحدة)
-  if (changeLog && changeLog.length && changeLog[0].length) {
-    const html = changeLog[0].map(m => {
-      const arrow = m.direction === 'up'
-        ? '<span class="arrow-up">▲</span>'
-        : '<span class="arrow-down">▼</span>';
-      const verb = m.direction === 'up' ? 'صعد' : 'هبط';
-      return `${arrow} ${verb} ${m.team} إلى المركز ${m.rankLabel}`;
-    }).join('&nbsp;&nbsp;|&nbsp;&nbsp;');
-    items.push(html);
+  if (Array.isArray(changeLog) && changeLog.length && Array.isArray(changeLog[0])) {
+    try {
+      const html = changeLog[0].map(m => {
+        const arrow = m.direction === 'up'
+          ? '<span class="arrow-up">▲</span>'
+          : '<span class="arrow-down">▼</span>';
+        const verb = m.direction === 'up' ? 'صعد' : 'هبط';
+        return `${arrow} ${verb} ${m.team} إلى المركز ${m.rankLabel}`;
+      }).join('&nbsp;&nbsp;|&nbsp;&nbsp;');
+      items.push(html);
+    } catch (e) { /* تجاهل أي مشكلة هنا، الحدث القادم لسه هيظهر */ }
   }
 
   // أقرب حدث قادم
