@@ -58,6 +58,21 @@ function renderFooterVerse(pageOffset) {
   el.innerHTML = `"${v.text}" <span class="verse-ref">(${v.ref})</span>`;
 }
 
+// ---------- شريط أخبار تغييرات الترتيب (الرئيسية بس) ----------
+function renderTicker(messages) {
+  const el = document.querySelector('[data-ticker]');
+  const wrap = document.querySelector('[data-ticker-wrap]');
+  if (!el || !wrap) return;
+  if (!messages || !messages.length) {
+    wrap.style.display = 'none';
+    return;
+  }
+  wrap.style.display = 'flex';
+  const content = messages.join('&nbsp;&nbsp;•&nbsp;&nbsp;');
+  // بنكرر المحتوى مرتين عشان اللفة تبقى متصلة من غير فجوة
+  el.innerHTML = `<span>${content}</span><span>${content}</span>`;
+}
+
 // ---------- فتح/قفل قائمة الموبايل ----------
 function toggleNav() {
   const nav = document.getElementById('mainNav');

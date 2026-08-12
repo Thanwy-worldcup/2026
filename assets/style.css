@@ -1081,3 +1081,50 @@ img { max-width: 100%; height: auto; display: block; }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
+/* ---------- شريط أخبار تغييرات الترتيب ---------- */
+
+.ticker-wrap {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: var(--navy);
+  color: #fff;
+  overflow: hidden;
+  padding: 8px 0;
+}
+
+.ticker-label {
+  flex: 0 0 auto;
+  background: var(--gold);
+  color: var(--navy);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-inline-start: 16px;
+  white-space: nowrap;
+}
+
+.ticker-track {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ticker-track span {
+  display: inline-block;
+  padding-inline-end: 40px;
+  font-size: 0.88rem;
+  animation: ticker-scroll 30s linear infinite;
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+@media (max-width: 640px) {
+  .ticker-label { display: none; }
+}
