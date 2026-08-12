@@ -61,14 +61,22 @@ function renderFooterVerse(pageOffset) {
 // ---------- شريط أخبار تغييرات الترتيب (الرئيسية بس) ----------
 function renderTicker(changeLog, schedule) {
   const el = document.querySelector('[data-ticker]');
+  const track = document.querySelector('.ticker-track');
   const wrap = document.querySelector('[data-ticker-wrap]');
-  if (!el || !wrap) return;
+  if (!el || !wrap || !track) return;
 
   const items = [];
 
-  // آخر تغيير حصل في الترتيب
-  if (changeLog && changeLog.length) {
-    items.push(changeLog[0]);
+  // آخر حدث تغيير في الترتيب (ممكن يكون فيه أكتر من فريق اتحرك مرة واحدة)
+  if (changeLog && changeLog.length && changeLog[0].length) {
+    const html = changeLog[0].map(m => {
+      const arrow = m.direction === 'up'
+        ? '<span class="arrow-up">▲</span>'
+        : '<span class="arrow-down">▼</span>';
+      const verb = m.direction === 'up' ? 'صعد' : 'هبط';
+      return `${arrow} ${verb} ${m.team} إلى المركز ${m.rankLabel}`;
+    }).join('&nbsp;&nbsp;|&nbsp;&nbsp;');
+    items.push(html);
   }
 
   // أقرب حدث قادم
@@ -83,10 +91,38 @@ function renderTicker(changeLog, schedule) {
   }
 
   wrap.style.display = 'flex';
-  const content = items.join('&nbsp;&nbsp;•&nbsp;&nbsp;');
-  // سبان واحد فيه المحتوى مكرر مرتين، وبنحرك السبان كله لحد نص عرضه بالظبط
-  // (يعني نسخة كاملة) عشان اللفة تبقى متصلة من غير قفزة أو تراكب
-  el.innerHTML = `${content}&nbsp;&nbsp;•&nbsp;&nbsp;${content}&nbsp;&nbsp;•&nbsp;&nbsp;`;
+
+  // إيقاف أي حركة سابقة شغالة قبل ما نبدأ واحدة جديدة
+  if (el._tickerRAF) cancelAnimationFrame(el._tickerRAF);
+
+  const unit = items.join('&nbsp;&nbsp;•&nbsp;&nbsp;') + '&nbsp;&nbsp;•&nbsp;&nbsp;';
+  el.innerHTML = unit;
+  el.style.transform = 'translateX(0)';
+
+  // بعد ما نقيس عرض النسخة الأولى، بنكررها تاني عشان يبقى دايمًا فيه
+  // نسخة جاهزة تدخل فور ما اللي قبلها يخرج، من غير أي فراغ
+  requestAnimationFrame(() => {
+    const unitWidth = el.getBoundingClientRect().width;
+    if (!unitWidth) return;
+    el.innerHTML = unit + unit;
+
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    const speed = 50; // بكسل / ثانية
+    let pos = 0;
+    let last = performance.now();
+
+    function step(now) {
+      const dt = (now - last) / 1000;
+      last = now;
+      pos += speed * dt;
+      if (pos >= unitWidth) pos -= unitWidth;
+      el.style.transform = `translateX(${-pos}px)`;
+      el._tickerRAF = requestAnimationFrame(step);
+    }
+    el._tickerRAF = requestAnimationFrame(step);
+  });
 }
 
 // ---------- فتح/قفل قائمة الموبايل ----------
