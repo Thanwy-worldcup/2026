@@ -31,6 +31,11 @@
   </div>
 </header>
 
+<div class="ticker-wrap" data-ticker-wrap>
+  <span class="ticker-label">آخر التغييرات</span>
+  <div class="ticker-track"><span data-ticker></span></div>
+</div>
+
 <!-- هذا القسم ثابت بالكامل — عدّل النص هنا مباشرة لو احتجت -->
 <section class="page-hero">
   <div class="container hero-flex">
@@ -83,6 +88,7 @@
   fetchTournamentData().then(data => {
     renderStandingsSummary(data.teams);
     renderNextEvent(data.schedule);
+    renderTicker(data.ticker);
   });
 </script>
 </body>
