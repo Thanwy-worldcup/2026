@@ -120,7 +120,7 @@ function renderTicker(changeLog, schedule) {
       last = now;
       pos += speed * dt;
       if (pos >= unitWidth) pos -= unitWidth;
-      el.style.transform = `translateX(${-pos}px)`;
+      el.style.transform = `translateX(${pos - unitWidth}px)`;
       el._tickerRAF = requestAnimationFrame(step);
     }
     el._tickerRAF = requestAnimationFrame(step);

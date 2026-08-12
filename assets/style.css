@@ -1039,7 +1039,7 @@ img { max-width: 100%; height: auto; display: block; }
   .container { padding: 0 16px; }
 
   .page-hero {
-    background-image: linear-gradient(rgba(255,255,255,0.50), rgba(255,255,255,0.50)), url('img/hero-bg-mobile.jpg');
+    background-image: url('img/hero-bg-mobile.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: bottom center;
