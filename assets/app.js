@@ -59,18 +59,34 @@ function renderFooterVerse(pageOffset) {
 }
 
 // ---------- شريط أخبار تغييرات الترتيب (الرئيسية بس) ----------
-function renderTicker(messages) {
+function renderTicker(changeLog, schedule) {
   const el = document.querySelector('[data-ticker]');
   const wrap = document.querySelector('[data-ticker-wrap]');
   if (!el || !wrap) return;
-  if (!messages || !messages.length) {
+
+  const items = [];
+
+  // آخر تغيير حصل في الترتيب
+  if (changeLog && changeLog.length) {
+    items.push(changeLog[0]);
+  }
+
+  // أقرب حدث قادم
+  const upcoming = (schedule || []).filter(a => a.status === 'قادم').sort((a, b) => a.ts - b.ts)[0];
+  if (upcoming) {
+    items.push(`📅 الحدث القادم: ${upcoming.activity} — ${upcoming.date} (${upcoming.time})`);
+  }
+
+  if (!items.length) {
     wrap.style.display = 'none';
     return;
   }
+
   wrap.style.display = 'flex';
-  const content = messages.join('&nbsp;&nbsp;•&nbsp;&nbsp;');
-  // بنكرر المحتوى مرتين عشان اللفة تبقى متصلة من غير فجوة
-  el.innerHTML = `<span>${content}</span><span>${content}</span>`;
+  const content = items.join('&nbsp;&nbsp;•&nbsp;&nbsp;');
+  // سبان واحد فيه المحتوى مكرر مرتين، وبنحرك السبان كله لحد نص عرضه بالظبط
+  // (يعني نسخة كاملة) عشان اللفة تبقى متصلة من غير قفزة أو تراكب
+  el.innerHTML = `${content}&nbsp;&nbsp;•&nbsp;&nbsp;${content}&nbsp;&nbsp;•&nbsp;&nbsp;`;
 }
 
 // ---------- فتح/قفل قائمة الموبايل ----------
