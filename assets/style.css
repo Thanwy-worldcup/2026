@@ -191,7 +191,7 @@ nav.main-nav a.active {
 .page-hero {
   position: relative;
   overflow: visible;
-  background-image: url('img/hero-bg.jpg');
+  background-image: linear-gradient(rgba(255,255,255,0.18), rgba(255,255,255,0.18)), url('img/hero-bg.jpg');
   background-size: cover;
   background-position: center;
   padding-top: 30px;
