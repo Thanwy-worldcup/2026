@@ -187,10 +187,10 @@ function renderTeamsPage(teams) {
   el.innerHTML = teams.map(t => {
     const color = resolveTeamColor(t);
     const players = t.players && t.players.length
-      ? t.players.map(p => `
+      ? t.players.map((p, i) => `
           <div class="player-row">
             <span class="player-name">
-              <span class="player-avatar">${initials(p.name)}</span>
+              <span class="player-avatar">${i + 1}</span>
               ${p.name}
             </span>
             <span class="player-points" style="background:${color}22; color:${color}">${p.points}</span>
