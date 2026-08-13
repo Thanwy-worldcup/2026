@@ -165,19 +165,21 @@ nav.main-nav a.active {
 }
 
 
-/* ---------- الموبايل فقط ---------- */
+/* ---------- الموبايل ---------- */
 
 @media (max-width: 480px) {
 
   .site-footer {
+    background: transparent;
     padding: 18px 8px;
     margin-top: 40px;
   }
 
- .footer-flex {
-  min-height: 30;
-  height: 60px;
-      }
+  .footer-flex {
+    position: relative;
+    height: 115px;
+    min-height: 0;
+    background: var(--navy);
   }
 
   .footer-qr {
@@ -188,13 +190,21 @@ nav.main-nav a.active {
     transform: translateY(-50%);
     padding: 4px;
     border-radius: 50%;
+    z-index: 3;
   }
 
   .footer-verse {
     margin-left: 88px;
     padding: 0 5px;
     width: calc(100% - 88px);
+    height: 100%;
+
     box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     text-align: center;
     font-size: 0.76rem;
