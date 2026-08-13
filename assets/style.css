@@ -147,46 +147,32 @@ nav.main-nav a.active {
   text-align: center;
 }
 
-.footer-qr-wrap {
+.footer-qr-badge {
   position: relative;
   flex: 0 0 auto;
-}
-
-.footer-qr-badge {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   background: #fff;
   border: 6px solid #fff;
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  overflow: hidden;
+  overflow: visible;
   margin-block: -45px;
 }
 
 .footer-qr-badge img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.footer-badge-logo {
   position: absolute;
-  top: -42px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
-  border-radius: 50%;
-  z-index: 2;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.35));
+  transform: translate(-50%, -50%);
+  width: 118%;
+  height: auto;
 }
 
 @media (max-width: 480px) {
   .footer-flex { padding: 16px 18px; gap: 12px; }
   .footer-verse { font-size: 0.8rem; }
   .footer-qr-badge { width: 100px; height: 100px; border-width: 4px; margin-block: -28px; }
-  .footer-badge-logo { width: 44px; height: 44px; top: -26px; }
 }
 
 .site-footer .verse-ref {
