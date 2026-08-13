@@ -134,6 +134,31 @@ nav.main-nav a.active {
   line-height: 1.7;
 }
 
+.footer-flex {
+  position: relative;
+}
+
+.footer-verse {
+  padding: 0 76px;
+}
+
+.footer-qr {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 58px;
+  height: 58px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+@media (max-width: 480px) {
+  .footer-verse { padding: 0 56px; font-size: 0.82rem; }
+  .footer-qr { width: 42px; height: 42px; left: 10px; }
+}
+
 .site-footer .verse-ref {
   display: block;
   color: var(--amber, var(--gold));
