@@ -183,9 +183,9 @@ nav.main-nav a.active {
   }
 
   .footer-qr {
-    width: 105px;
-    height: 105px;
-    left: 4px;
+    width: 115px;
+    height: 115px;
+    left: 10px;
     top: 50%;
     transform: translateY(-50%);
     padding: 4px;
