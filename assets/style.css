@@ -174,8 +174,10 @@ nav.main-nav a.active {
     margin-top: 40px;
   }
 
-  .footer-flex {
-    min-height: 105px;
+ .footer-flex {
+  min-height: 0;
+  height: 92px;
+      }
   }
 
   .footer-qr {
