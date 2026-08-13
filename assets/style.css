@@ -58,7 +58,7 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 12px 24px;
+  padding: 6px 24px;
   flex-wrap: wrap;
 }
 
@@ -67,8 +67,8 @@ a { color: inherit; text-decoration: none; }
 .brand > div { min-width: 0; }
 
 .brand img {
-  width: 50px;
-  height: 50px;
+  width: 62px;
+  height: 62px;
   object-fit: contain;
   border-radius: 50%;
 }
@@ -127,33 +127,48 @@ nav.main-nav a.active {
 .site-footer {
   background: var(--navy);
   color: rgba(255,255,255,0.85);
-  text-align: center;
-  padding: 26px 20px;
-  margin-top: 56px;
+  margin: 40px 16px 24px;
+  border-radius: 24px;
+  overflow: visible;
   font-size: 0.92rem;
   line-height: 1.7;
 }
 
 .footer-flex {
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 26px;
+  min-height: 60px;
 }
 
 .footer-verse {
-  padding: 0 76px;
+  flex: 1;
+  text-align: center;
 }
 
-.footer-qr {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 180px;
-  height: 180px;
-  background: #fff;
+.footer-qr-badge {
+  flex: 0 0 auto;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  padding: 6px;
-  box-sizing: border-box;
-  z-index: 2;
+  background: #fff;
+  border: 6px solid var(--gold);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  overflow: hidden;
+  margin-block: -30px;
+}
+
+.footer-qr-badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 480px) {
+  .footer-flex { padding: 16px 18px; gap: 12px; }
+  .footer-verse { font-size: 0.8rem; }
+  .footer-qr-badge { width: 80px; height: 80px; border-width: 4px; margin-block: -18px; }
 }
 
 .site-footer .verse-ref {
@@ -163,60 +178,6 @@ nav.main-nav a.active {
   margin-top: 4px;
   opacity: 0.85;
 }
-
-
-/* ---------- الموبايل ---------- */
-
-@media (max-width: 480px) {
-
-  .site-footer {
-    background: transparent;
-    padding: 18px 8px;
-    margin-top: 40px;
-  }
-
-  .footer-flex {
-    position: relative;
-    height: 85px;
-    min-height: 0;
-    background: var(--navy);
-  }
-
-  .footer-qr {
-    width: 115px;
-    height: 115px;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 4px;
-    border-radius: 50%;
-    z-index: 3;
-  }
-
-  .footer-verse {
-  margin-left: 100px;
-  padding: 0 5px;
-  width: calc(100% - 100px);
-  height: 100%;
-
-  box-sizing: border-box;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  text-align: center;
-  font-size: 0.76rem;
-  line-height: 1.55;
-}
-
-  .site-footer .verse-ref {
-    font-size: 0.66rem;
-    margin-top: 3px;
-  }
-}
-
 
 /* ---------- الهيرو (يستخدم في كل الصفحات) ---------- */
 
@@ -1040,7 +1001,7 @@ img { max-width: 100%; height: auto; display: block; }
     justify-content: space-between;
     flex-wrap: nowrap;
     position: relative;
-    padding: 12px 16px;
+    padding: 4px 16px;
     gap: 10px;
   }
 
@@ -1068,8 +1029,8 @@ img { max-width: 100%; height: auto; display: block; }
 
   .brand img {
     order: 3;
-    width: 42px;
-    height: 42px;
+    width: 62px;
+    height: 62px;
     flex: 0 0 auto;
   }
 
