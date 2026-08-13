@@ -136,15 +136,10 @@ nav.main-nav a.active {
 
 .footer-flex {
   position: relative;
-  min-height: 180px;
-  display: flex;
-  align-items: center;
 }
 
 .footer-verse {
-  width: 100%;
-  padding: 0 190px 0 210px;
-  box-sizing: border-box;
+  padding: 0 76px;
 }
 
 .footer-qr {
@@ -152,73 +147,64 @@ nav.main-nav a.active {
   left: 16px;
   top: 50%;
   transform: translateY(-50%);
-
   width: 180px;
   height: 180px;
-
   background: #fff;
   border-radius: 50%;
   padding: 6px;
   box-sizing: border-box;
-
   z-index: 2;
 }
 
-/* ---------- الموبايل ---------- */
+.site-footer .verse-ref {
+  display: block;
+  color: var(--amber, var(--gold));
+  font-size: 0.78rem;
+  margin-top: 4px;
+  opacity: 0.85;
+}
+
+
+/* ---------- الموبايل فقط ---------- */
 
 @media (max-width: 480px) {
 
   .site-footer {
-    padding: 18px 10px;
+    padding: 18px 8px;
     margin-top: 40px;
   }
 
   .footer-flex {
-    min-height: 100px;
-    display: flex;
-    align-items: center;
+    min-height: 105px;
   }
 
-  /* مساحة الآية تبدأ بعد الـ QR وتمتد حتى آخر الشاشة */
-  .footer-verse {
-    width: calc(100% - 85px);
-    margin-left: 85px;
-    padding: 0 8px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    text-align: center;
-    font-size: 0.78rem;
-    line-height: 1.6;
-    box-sizing: border-box;
-  }
-
-  /* الـ QR يخرج من الشريط ويظهر كأنه Badge */
   .footer-qr {
-    width: 95px;
-    height: 95px;
-
-    left: -5px;
+    width: 92px;
+    height: 92px;
+    left: -4px;
     top: 50%;
-
     transform: translateY(-50%);
-
     padding: 4px;
     border-radius: 50%;
+  }
 
-    z-index: 3;
+  .footer-verse {
+    margin-left: 88px;
+    padding: 0 5px;
+    width: calc(100% - 88px);
+    box-sizing: border-box;
 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    text-align: center;
+    font-size: 0.76rem;
+    line-height: 1.65;
   }
 
   .site-footer .verse-ref {
-    font-size: 0.68rem;
+    font-size: 0.66rem;
     margin-top: 3px;
   }
 }
+
 
 /* ---------- الهيرو (يستخدم في كل الصفحات) ---------- */
 
