@@ -175,8 +175,8 @@ nav.main-nav a.active {
   }
 
  .footer-flex {
-  min-height: 0;
-  height: 50px;
+  min-height: 30;
+  height: 60px;
       }
   }
 
