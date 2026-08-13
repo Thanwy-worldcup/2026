@@ -177,7 +177,7 @@ nav.main-nav a.active {
 
   .footer-flex {
     position: relative;
-    height: 95px;
+    height: 85px;
     min-height: 0;
     background: var(--navy);
   }
