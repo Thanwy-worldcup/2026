@@ -994,7 +994,8 @@ nav.main-nav a.active {
 
 /* ---------- استجابة الموبايل ---------- */
 
-html, body { max-width: 100%; overflow-x: hidden; }
+html { max-width: 100%; }
+body { max-width: 100%; overflow-x: hidden; }
 
 img { max-width: 100%; height: auto; display: block; }
 
