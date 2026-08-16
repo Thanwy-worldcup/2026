@@ -39,18 +39,86 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <!-- ============================================================
-         عشان تضيف صور البامفلت: انسخ السطر ده وكرره لكل صورة،
-         وحط اسم الصورة اللي رفعتها في مجلد assets/img بدل placeholder.jpg
-         <img src="assets/img/pamphlet-1.jpg" alt="البامفلت">
-         ============================================================ -->
-    <div class="pamphlet-images">
-      <p class="empty-state">هيتم إضافة صور البامفلت هنا قريبًا</p>
-    </div>
+<!-- Mini Navigation ثابتة أثناء التمرير -->
+<div class="mini-nav">
+  <div class="mini-nav-list" data-mini-nav>
+    <a href="#slogan"><span class="mini-nav-icon">🏆</span>الشعار</a>
+    <a href="#hymns"><span class="mini-nav-icon">🎵</span>الترانيم</a>
+    <a href="#quotes"><span class="mini-nav-icon">💬</span>الأقوال</a>
+    <a href="#ideas"><span class="mini-nav-icon">💡</span>الأفكار</a>
+    <a href="#verse"><span class="mini-nav-icon">📖</span>آية اليوم</a>
+    <a href="#challenges"><span class="mini-nav-icon">⚽</span>التحديات</a>
+    <a href="#notes"><span class="mini-nav-icon">✏️</span>ملاحظاتي</a>
   </div>
-</section>
+</div>
+
+<div class="container">
+
+  <section id="slogan" class="pamphlet-section">
+    <div class="section-title">🏆 شعار المؤتمر</div>
+    <div class="pamphlet-card">
+      <div class="pamphlet-line">
+        <span class="pamphlet-bullet">⭐</span>
+        <p>مش كل طريق عليه زينه ... نجري عليه وهو مش لينا<br>في حاجات بتغير اسامينا .. وحاجات فعلا بتليق بينا</p>
+      </div>
+      <div class="pamphlet-line">
+        <span class="pamphlet-bullet">❤️</span>
+        <p>يوسف قال لا بجهارة.. وفضل عايشها بطهارة<br>داود وقع فى الخطية.. ورجع تاني للوصية</p>
+      </div>
+      <div class="pamphlet-line">
+        <span class="pamphlet-bullet">🌱</span>
+        <p>مش كل كأس هو انتصار... ولا كل سكة فيها تمار<br>في طريق ضيق لكنه حياة.. بس نهايته فرح ونجاة</p>
+      </div>
+      <div class="pamphlet-line">
+        <span class="pamphlet-bullet">👑</span>
+        <p>وانا مهما الطريق هيميل .. مفضل ابص على الاكليل<br>ولو ماتشي في يوم هيخلص .. اكليلي عمره ما هيفنى</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="hymns" class="pamphlet-section">
+    <div class="section-title">🎵 الترانيم</div>
+    <div class="pamphlet-card">
+      <p class="empty-state">هيتم إضافة الترانيم هنا قريبًا</p>
+    </div>
+  </section>
+
+  <section id="quotes" class="pamphlet-section">
+    <div class="section-title">💬 الأقوال</div>
+    <div class="pamphlet-card">
+      <p class="empty-state">هيتم إضافة الأقوال هنا قريبًا</p>
+    </div>
+  </section>
+
+  <section id="ideas" class="pamphlet-section">
+    <div class="section-title">💡 الأفكار</div>
+    <div class="pamphlet-card">
+      <p class="empty-state">هيتم إضافة الأفكار هنا قريبًا</p>
+    </div>
+  </section>
+
+  <section id="verse" class="pamphlet-section">
+    <div class="section-title">📖 آية اليوم</div>
+    <div class="pamphlet-card">
+      <p class="empty-state">هيتم إضافة آية اليوم هنا قريبًا</p>
+    </div>
+  </section>
+
+  <section id="challenges" class="pamphlet-section">
+    <div class="section-title">⚽ التحديات</div>
+    <div class="pamphlet-card">
+      <p class="empty-state">هيتم إضافة التحديات هنا قريبًا</p>
+    </div>
+  </section>
+
+  <section id="notes" class="pamphlet-section">
+    <div class="section-title">✏️ ملاحظاتي</div>
+    <div class="pamphlet-card">
+      <p class="empty-state">هيتم إضافة القسم ده قريبًا</p>
+    </div>
+  </section>
+
+</div>
 
 <footer class="site-footer">
   <div class="container footer-flex">
@@ -62,6 +130,10 @@
 </footer>
 
 <script src="assets/app.js?v=2"></script>
-<script>markActiveNav(); renderFooterVerse(5);</script>
+<script>
+  markActiveNav();
+  renderFooterVerse(5);
+  initMiniNavSpy();
+</script>
 </body>
 </html>
