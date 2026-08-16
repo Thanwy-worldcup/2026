@@ -34,7 +34,7 @@
 <main class="pamphlet-book-shell">
   <div class="pamphlet-topbar">
     <div class="pamphlet-book-title">📖 بامفلت المؤتمر</div>
-    <div class="pamphlet-page-counter" id="pageCounter">صفحة ١ من ٧</div>
+    <div class="pamphlet-page-counter" id="pageCounter">صفحة ١ من ١٠</div>
     <button class="pamphlet-index-btn" id="indexBtn" type="button">الفهرس</button>
   </div>
 
@@ -68,104 +68,19 @@
 <script>
 markActiveNav();
 
-const pamphletPages = [
-  {
-    title: 'الشعار', icon: '🏆',
-    html: `
-      <div class="paper-kicker">كأس العالم 2026</div>
-      <h1 class="paper-title">شعار المؤتمر 🏆</h1>
-
-
-
-    
-        
-    `
-  },
-  {
-    title: 'الترانيم', icon: '🎵',
-    html: `
-      <div class="paper-kicker">صوتنا واحد</div>
-      <h1 class="paper-title">الترانيم 🎵</h1>
-      <div class="paper-rule"></div>
-      <div class="hymns-grid">
-        <div class="hymn-card"><span>🎶</span><strong>ترنيمة اليوم</strong><small>سيتم إضافة الترنيمة هنا</small></div>
-        <div class="hymn-card"><span>🎼</span><strong>ترنيمة جماعية</strong><small>سيتم إضافة الترنيمة هنا</small></div>
-        <div class="hymn-card"><span>🎤</span><strong>ترنيمة المساء</strong><small>سيتم إضافة الترنيمة هنا</small></div>
-      </div>
-      <div class="paper-quote">«رنموا للرب ترنيمة جديدة»</div>
-    `
-  },
-  {
-    title: 'الأقوال', icon: '💬',
-    html: `
-      <div class="paper-kicker">كلمات تفضل معانا</div>
-      <h1 class="paper-title">أقوال 💬</h1>
-      <div class="paper-rule"></div>
-      <div class="quotes-list">
-        <blockquote>«سيتم إضافة أقوال المؤتمر هنا»<cite>— قول اليوم</cite></blockquote>
-        <blockquote>«كلمة صغيرة ممكن تغيّر طريق كامل»<cite>— تذكرة اليوم</cite></blockquote>
-        <blockquote>«اختار اللي يليق بيك… مش اللي يلمع قدامك»<cite>— رسالة المؤتمر</cite></blockquote>
-      </div>
-    `
-  },
-  {
-    title: 'الأفكار', icon: '💡',
-    html: `
-      <div class="paper-kicker">فكر • جرّب • عِش</div>
-      <h1 class="paper-title">أفكار 💡</h1>
-      <div class="paper-rule"></div>
-      <div class="ideas-grid">
-        <div><span>🎯</span><strong>فكرة اليوم</strong><p>مساحة لإضافة فكرة روحية أو عملية.</p></div>
-        <div><span>🤝</span><strong>فكرة جماعية</strong><p>مساحة لفكرة تساعد الفريق يتعاون.</p></div>
-        <div><span>❤️</span><strong>تحدي شخصي</strong><p>شيء بسيط أعمله وأعيش معناه.</p></div>
-        <div><span>🌱</span><strong>خطوة جديدة</strong><p>عادة أو قرار أبدأ به بعد المؤتمر.</p></div>
-      </div>
-    `
-  },
-  {
-    title: 'آية اليوم', icon: '📖',
-    html: `
-      <div class="verse-page">
-        <div class="verse-symbol">📖</div>
-        <div class="paper-kicker">كلمة اليوم</div>
-        <h1 class="paper-title">آية اليوم</h1>
-        <div class="verse-box">
-          <span class="quote-mark">“</span>
-          <p>ضع آية اليوم هنا، لتكون هي الكلمة التي نرجع لها وسط كل أحداث البطولة.</p>
-          <span class="verse-ref">— المرجع الكتابي</span>
-        </div>
-        <div class="verse-bottom">احتفظ بالكلمة في قلبك 🤍</div>
-      </div>
-    `
-  },
-  {
-    title: 'التحديات', icon: '⚽',
-    html: `
-      <div class="paper-kicker">جاهز للمباراة؟</div>
-      <h1 class="paper-title">تحديات المؤتمر ⚽</h1>
-      <div class="paper-rule"></div>
-      <div class="challenge-board">
-        <div class="challenge"><span>📖</span><strong>حفظ الآية</strong><b>+3 نقاط</b></div>
-        <div class="challenge"><span>🤝</span><strong>العمل الجماعي</strong><b>+3 نقاط</b></div>
-        <div class="challenge"><span>🙋</span><strong>المشاركة</strong><b>+2 نقاط</b></div>
-        <div class="challenge"><span>⏰</span><strong>الالتزام</strong><b>+2 نقاط</b></div>
-      </div>
-      <div class="challenge-note">كل نقطة بتفرق… وكل خطوة بتبني الفريق.</div>
-    `
-  },
-  {
-    title: 'ملاحظاتي', icon: '📝',
-    html: `
-      <div class="paper-kicker">اكتب اللي عايز تفتكره</div>
-      <h1 class="paper-title">ملاحظاتي 📝</h1>
-      <div class="paper-rule"></div>
-      <div class="notes-paper">
-        <div></div><div></div><div></div><div></div><div></div><div></div>
-      </div>
-      <div class="paper-footer-note">⭐ أهم حاجة أخدتها معايا من المؤتمر: __________________</div>
-    `
-  }
-];
+/* ----------------------------------------------------------
+   البامفلت - مرحلة تصميم الكتاب فقط
+   10 صفحات فارغة جاهزة لاستقبال المحتوى لاحقًا.
+   ---------------------------------------------------------- */
+const pamphletPages = Array.from({ length: 10 }, (_, i) => ({
+  title: `صفحة ${i + 1}`,
+  icon: '📖',
+  html: `
+    <div class="blank-book-page" aria-label="صفحة ${i + 1}">
+      <span class="blank-page-number">${String(i + 1).padStart(2, '0')}</span>
+    </div>
+  `
+}));
 
 const paper = document.getElementById('pamphletPaper');
 const content = document.getElementById('paperContent');
@@ -175,33 +90,45 @@ const index = document.getElementById('pamphletIndex');
 const indexList = document.getElementById('indexList');
 let currentPage = 0;
 let turning = false;
+let touchStartX = 0;
+let touchStartY = 0;
 
 function arabicNumber(n) {
   return String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
 }
 
+function updatePageChrome(n) {
+  counter.textContent = `صفحة ${arabicNumber(n + 1)} من ${arabicNumber(pamphletPages.length)}`;
+  [...dots.children].forEach((d, i) => d.classList.toggle('active', i === n));
+  [...indexList.children].forEach((d, i) => d.classList.toggle('active', i === n));
+}
+
+function setPage(n) {
+  const page = pamphletPages[n];
+  content.innerHTML = page.html;
+  updatePageChrome(n);
+}
+
 function renderPage(n, direction = 'next', instant = false) {
   if (turning || n < 0 || n >= pamphletPages.length || n === currentPage && !instant) return;
-  const page = pamphletPages[n];
-  const update = () => {
-    content.innerHTML = page.html;
-    counter.textContent = `صفحة ${arabicNumber(n + 1)} من ${arabicNumber(pamphletPages.length)}`;
-    [...dots.children].forEach((d, i) => d.classList.toggle('active', i === n));
-    [...indexList.children].forEach((d, i) => d.classList.toggle('active', i === n));
-  };
 
-  if (instant) { update(); return; }
+  if (instant) {
+    currentPage = n;
+    setPage(n);
+    return;
+  }
 
   turning = true;
   paper.classList.remove('flip-next', 'flip-prev');
   void paper.offsetWidth;
   paper.classList.add(direction === 'next' ? 'flip-next' : 'flip-prev');
+
   setTimeout(() => {
-    update();
+    currentPage = n;
+    setPage(n);
     paper.classList.remove('flip-next', 'flip-prev');
     turning = false;
-  }, 430);
-  currentPage = n;
+  }, 680);
 }
 
 function goToPage(n) {
@@ -209,15 +136,25 @@ function goToPage(n) {
   renderPage(n, n > currentPage ? 'next' : 'prev');
 }
 
-dots.innerHTML = pamphletPages.map((p, i) => `<button type="button" aria-label="${p.title}" data-page="${i}"></button>`).join('');
+/* النقاط السفلية */
+dots.innerHTML = pamphletPages.map((p, i) =>
+  `<button type="button" aria-label="صفحة ${i + 1}" data-page="${i}"></button>`
+).join('');
+
+/* فهرس بسيط مؤقتًا - المحتوى سنضعه لاحقًا */
 indexList.innerHTML = pamphletPages.map((p, i) => `
-  <button type="button" data-page="${i}"><span>${p.icon}</span><strong>${p.title}</strong><small>صفحة ${arabicNumber(i + 1)}</small></button>
+  <button type="button" data-page="${i}">
+    <span>📖</span>
+    <strong>صفحة ${arabicNumber(i + 1)}</strong>
+    <small>من أصل ${arabicNumber(pamphletPages.length)} صفحات</small>
+  </button>
 `).join('');
 
 dots.addEventListener('click', e => {
   const b = e.target.closest('[data-page]');
   if (b) goToPage(Number(b.dataset.page));
 });
+
 indexList.addEventListener('click', e => {
   const b = e.target.closest('[data-page]');
   if (!b) return;
@@ -228,14 +165,17 @@ indexList.addEventListener('click', e => {
 
 document.getElementById('prevBtn').addEventListener('click', () => goToPage(currentPage - 1));
 document.getElementById('nextBtn').addEventListener('click', () => goToPage(currentPage + 1));
+
 document.getElementById('indexBtn').addEventListener('click', () => {
   index.classList.add('open');
   index.setAttribute('aria-hidden', 'false');
 });
+
 document.getElementById('indexClose').addEventListener('click', () => {
   index.classList.remove('open');
   index.setAttribute('aria-hidden', 'true');
 });
+
 index.addEventListener('click', e => {
   if (e.target === index) {
     index.classList.remove('open');
@@ -243,31 +183,35 @@ index.addEventListener('click', e => {
   }
 });
 
+/* لوحة المفاتيح */
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') goToPage(currentPage - 1);
   if (e.key === 'ArrowLeft') goToPage(currentPage + 1);
-  if (e.key === 'Escape') index.classList.remove('open');
+  if (e.key === 'Escape') {
+    index.classList.remove('open');
+    index.setAttribute('aria-hidden', 'true');
+  }
 });
 
-let touchStartX = 0;
-let touchStartY = 0;
+/* السحب على الموبايل */
 paper.addEventListener('touchstart', e => {
   touchStartX = e.changedTouches[0].screenX;
   touchStartY = e.changedTouches[0].screenY;
 }, { passive: true });
+
 paper.addEventListener('touchend', e => {
   const x = e.changedTouches[0].screenX;
   const y = e.changedTouches[0].screenY;
   const dx = x - touchStartX;
   const dy = y - touchStartY;
+
   if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) {
-    // RTL: السحب من اليمين لليسار = التالي
     if (dx < 0) goToPage(currentPage + 1);
     else goToPage(currentPage - 1);
   }
 }, { passive: true });
 
-renderPage(0, 'next', true);
+setPage(0);
 </script>
 </body>
 </html>
