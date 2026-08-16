@@ -823,6 +823,76 @@ nav.main-nav a.active {
 
 .timeline-notes { font-size: 0.78rem; color: var(--steel); margin-top: 2px; }
 
+/* ---------- البامفلت: مینی نافيجيشن + أقسام ---------- */
+
+.mini-nav {
+  position: sticky;
+  top: 74px;
+  z-index: 40;
+  background: var(--white);
+  box-shadow: 0 4px 12px rgba(20,51,94,0.08);
+}
+
+.mini-nav-list {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 10px 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mini-nav-list a {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  color: var(--steel);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+
+.mini-nav-list a .mini-nav-icon { font-size: 1.2rem; }
+
+.mini-nav-list a.active,
+.mini-nav-list a:hover {
+  background: var(--sky);
+  color: var(--navy);
+}
+
+.pamphlet-section { scroll-margin-top: 150px; padding: 30px 0; }
+
+.pamphlet-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 6px 22px;
+  box-shadow: 0 8px 30px rgba(20,51,94,0.08);
+}
+
+.pamphlet-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.pamphlet-line:last-child { border-bottom: none; }
+
+.pamphlet-bullet { font-size: 1.3rem; flex: 0 0 auto; margin-top: 2px; }
+
+.pamphlet-line p { margin: 0; line-height: 1.9; color: var(--ink); }
+
+@media (max-width: 860px) {
+  .mini-nav { top: 70px; }
+}
+
 /* ---------- اللوائح ---------- */
 
 .rules-icon-grid {

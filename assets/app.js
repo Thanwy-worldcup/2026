@@ -147,6 +147,25 @@ function markActiveNav() {
   });
 }
 
+// ---------- تفعيل رابط القسم الحالي في مینی نافيجيشن البامفلت ----------
+function initMiniNavSpy() {
+  const links = document.querySelectorAll('[data-mini-nav] a');
+  const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href')));
+  if (!links.length || !sections.length) return;
+
+  const setActive = (id) => {
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, { rootMargin: '-140px 0px -60% 0px', threshold: 0 });
+
+  sections.forEach(s => { if (s) observer.observe(s); });
+}
+
 // ---------- تحديد لون ورمز كل فريق من اسمه ----------
 function teamColor(name) {
   if (!name) return 'var(--gray-team)';
