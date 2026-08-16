@@ -1199,8 +1199,8 @@ img { max-width: 100%; height: auto; display: block; }
 
 .book-shell {
   position: relative;
-  width: min(94vw, 1320px);
-  height: min(79vh, 860px);
+  width: min(96vw, 1440px);
+  height: min(82vh, 900px);
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -1214,30 +1214,7 @@ img { max-width: 100%; height: auto; display: block; }
   z-index: 3;
 }
 
-.book-edge {
-  position: absolute;
-  top: 2.5%;
-  bottom: 2.5%;
-  width: 18px;
-  z-index: 1;
-  pointer-events: none;
-  background: repeating-linear-gradient(to bottom,
-    #d5d9df 0, #d5d9df 2px,
-    #fbfbfb 2px, #fbfbfb 5px);
-  opacity: .95;
-}
 
-.book-edge-left {
-  left: -7px;
-  border-radius: 10px 0 0 10px;
-  box-shadow: -6px 0 9px rgba(20,51,94,.09);
-}
-
-.book-edge-right {
-  right: -7px;
-  border-radius: 0 10px 10px 0;
-  box-shadow: 6px 0 9px rgba(20,51,94,.09);
-}
 
 .book-page {
   background: #fffdf8;
@@ -1310,11 +1287,11 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .book-controls {
-  margin-top: 12px;
+  margin-top: 8px;
   display: flex;
   align-items: center;
-  gap: 18px;
-  direction: rtl;
+  gap: 16px;
+  direction: ltr;
 }
 
 .book-btn {
@@ -1339,7 +1316,7 @@ img { max-width: 100%; height: auto; display: block; }
 .book-btn:disabled { opacity: .30; cursor: default; }
 
 .page-counter {
-  direction: rtl;
+  direction: ltr;
   min-width: 62px;
   text-align: center;
   color: var(--navy, #14335e);
@@ -1361,14 +1338,13 @@ img { max-width: 100%; height: auto; display: block; }
   .flipbook-stage { min-height: calc(100vh - 74px); }
   .flipbook-stage { padding: 8px 7px 10px; }
   .book-shell { width: 96vw; height: min(79vh, 760px); }
-  .book-edge { display: none; }
 }
 
 @media (max-width: 600px) {
   .flipbook-stage { padding: 5px 4px 8px; }
   .book-shell {
     width: 96vw;
-    height: calc(100vh - 135px);
+    height: calc(100vh - 150px);
     max-height: 760px;
     min-height: 450px;
   }
@@ -1378,8 +1354,8 @@ img { max-width: 100%; height: auto; display: block; }
   .page-corner-tr { top: 18px; right: 18px; }
   .page-corner-bl { bottom: 18px; left: 18px; }
   .page-corner-br { bottom: 18px; right: 18px; }
-  .book-controls { margin-top: 8px; gap: 13px; }
-  .book-btn { width: 36px; height: 36px; font-size: 1.5rem; }
+  .book-controls { margin-top: 2px; gap: 12px; }
+  .book-btn { width: 38px; height: 38px; font-size: 1.55rem; }
   .book-hint { font-size: .66rem; }
 }
 
@@ -1399,5 +1375,37 @@ img { max-width: 100%; height: auto; display: block; }
 @media (max-width: 700px) {
   #book {
     direction: rtl;
+  }
+}
+
+/* ---------- ضبط النسخة النهائية للكتاب ---------- */
+.book-controls {
+  justify-content: center;
+}
+
+.book-next { order: 1; }
+.page-counter { order: 2; }
+.book-prev { order: 3; }
+
+@media (max-width: 700px) {
+  .flipbook-stage {
+    justify-content: flex-start;
+    padding-top: 6px;
+  }
+
+  .book-shell {
+    width: 97vw;
+    height: calc(100vh - 150px);
+    max-height: 740px;
+    min-height: 430px;
+  }
+
+  .book-controls {
+    margin-top: 0;
+    transform: translateY(-2px);
+  }
+
+  .book-hint {
+    display: none;
   }
 }
