@@ -2,13 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>البامفلت</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>البامفلت | مؤتمر شباب ثانوي</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=2">
+<link rel="stylesheet" href="assets/style.css?v=3">
 </head>
-<body>
+<body class="pamphlet-page-body">
 
 <header class="site-header">
   <div class="container">
@@ -31,37 +31,262 @@
   </div>
 </header>
 
-<section class="page-hero">
-  <div class="container">
-    <img class="hero-icon-img" src="assets/img/pamphlet-icon.png" alt="">
-    <h2>البامفلت</h2>
-    <p class="verse">كل تفاصيل المؤتمر في مكان واحد</p>
+<main class="pamphlet-book-shell">
+  <div class="pamphlet-topbar">
+    <div class="pamphlet-book-title">📖 بامفلت المؤتمر</div>
+    <div class="pamphlet-page-counter" id="pageCounter">صفحة ١ من ٧</div>
+    <button class="pamphlet-index-btn" id="indexBtn" type="button">الفهرس</button>
   </div>
-</section>
 
-<section class="section">
-  <div class="container">
-    <!-- ============================================================
-         عشان تضيف صور البامفلت: انسخ السطر ده وكرره لكل صورة،
-         وحط اسم الصورة اللي رفعتها في مجلد assets/img بدل placeholder.jpg
-         <img src="assets/img/pamphlet-1.jpg" alt="البامفلت">
-         ============================================================ -->
-    <div class="pamphlet-images">
-      <p class="empty-state">هيتم إضافة صور البامفلت هنا قريبًا</p>
-    </div>
+  <div class="pamphlet-book" id="pamphletBook" aria-live="polite">
+    <div class="pamphlet-paper-shadow"></div>
+    <article class="pamphlet-paper" id="pamphletPaper">
+      <div class="paper-corner paper-corner-top"></div>
+      <div class="paper-corner paper-corner-bottom"></div>
+      <div class="paper-content" id="paperContent"></div>
+    </article>
   </div>
-</section>
 
-<footer class="site-footer">
-  <div class="container footer-flex">
-    <div class="footer-verse" data-footer-verse></div>
-    <div class="footer-qr-badge">
-      <img src="assets/img/qr-code.png" alt="امسح لفتح الموقع">
-    </div>
+  <div class="pamphlet-controls">
+    <button class="page-arrow" id="prevBtn" type="button" aria-label="الصفحة السابقة">‹</button>
+    <div class="page-dots" id="pageDots"></div>
+    <button class="page-arrow" id="nextBtn" type="button" aria-label="الصفحة التالية">›</button>
   </div>
-</footer>
 
-<script src="assets/app.js?v=2"></script>
-<script>markActiveNav(); renderFooterVerse(5);</script>
+  <div class="pamphlet-hint">اسحب يمينًا أو يسارًا لقلب الصفحة • أو استخدم الأسهم</div>
+</main>
+
+<div class="pamphlet-index" id="pamphletIndex" aria-hidden="true">
+  <div class="pamphlet-index-card">
+    <button class="index-close" id="indexClose" type="button" aria-label="إغلاق">×</button>
+    <div class="index-title">فهرس البامفلت</div>
+    <div class="index-list" id="indexList"></div>
+  </div>
+</div>
+
+<script src="assets/app.js?v=3"></script>
+<script>
+markActiveNav();
+
+const pamphletPages = [
+  {
+    title: 'الشعار', icon: '🏆',
+    html: `
+      <div class="paper-kicker">كأس العالم 2026</div>
+      <h1 class="paper-title">شعار المؤتمر 🏆</h1>
+      <div class="paper-rule"></div>
+      <div class="slogan-layout">
+        <div class="slogan-side-card">
+          <span class="slogan-side-icon">🧭</span>
+          <strong>اختيار الطريق</strong>
+          <span>مش كل طريق يستاهل نمشيه</span>
+        </div>
+        <div class="slogan-poem">
+          <p>مش كل طريق عليه زينه ... نجرى عليه وهو مش لينا<br>
+          فى حاجات بتغير اسامينا .. وحاجات فعلا بتليق بينا</p>
+          <p>يوسف قال لا بجهارة.. وفضل عايشها بطهارة<br>
+          وداود وقع فى الخطية .. ورجع تانى للوصيه</p>
+          <p>مش كل كاس هو انتصار... ولا كل سكة فيها ثمار<br>
+          في طريق ضيق لكنه حياة... بس نهايته فرح ونجاة</p>
+          <p>وانا مهما الطريق هيميل .. هفضل ابص على الاكليل<br>
+          ولو ماتشى فى يوم هيخلص .. اكليلى عمره ما هيفنى</p>
+        </div>
+        <div class="slogan-side-card">
+          <span class="slogan-side-icon">👑</span>
+          <strong>عينك على الإكليل</strong>
+          <span>النهاية مش في الكأس… النهاية في الإكليل</span>
+        </div>
+      </div>
+      <div class="paper-footer-note">✨ مش كل انتصار هو المكسب الحقيقي</div>
+    `
+  },
+  {
+    title: 'الترانيم', icon: '🎵',
+    html: `
+      <div class="paper-kicker">صوتنا واحد</div>
+      <h1 class="paper-title">الترانيم 🎵</h1>
+      <div class="paper-rule"></div>
+      <div class="hymns-grid">
+        <div class="hymn-card"><span>🎶</span><strong>ترنيمة اليوم</strong><small>سيتم إضافة الترنيمة هنا</small></div>
+        <div class="hymn-card"><span>🎼</span><strong>ترنيمة جماعية</strong><small>سيتم إضافة الترنيمة هنا</small></div>
+        <div class="hymn-card"><span>🎤</span><strong>ترنيمة المساء</strong><small>سيتم إضافة الترنيمة هنا</small></div>
+      </div>
+      <div class="paper-quote">«رنموا للرب ترنيمة جديدة»</div>
+    `
+  },
+  {
+    title: 'الأقوال', icon: '💬',
+    html: `
+      <div class="paper-kicker">كلمات تفضل معانا</div>
+      <h1 class="paper-title">أقوال 💬</h1>
+      <div class="paper-rule"></div>
+      <div class="quotes-list">
+        <blockquote>«سيتم إضافة أقوال المؤتمر هنا»<cite>— قول اليوم</cite></blockquote>
+        <blockquote>«كلمة صغيرة ممكن تغيّر طريق كامل»<cite>— تذكرة اليوم</cite></blockquote>
+        <blockquote>«اختار اللي يليق بيك… مش اللي يلمع قدامك»<cite>— رسالة المؤتمر</cite></blockquote>
+      </div>
+    `
+  },
+  {
+    title: 'الأفكار', icon: '💡',
+    html: `
+      <div class="paper-kicker">فكر • جرّب • عِش</div>
+      <h1 class="paper-title">أفكار 💡</h1>
+      <div class="paper-rule"></div>
+      <div class="ideas-grid">
+        <div><span>🎯</span><strong>فكرة اليوم</strong><p>مساحة لإضافة فكرة روحية أو عملية.</p></div>
+        <div><span>🤝</span><strong>فكرة جماعية</strong><p>مساحة لفكرة تساعد الفريق يتعاون.</p></div>
+        <div><span>❤️</span><strong>تحدي شخصي</strong><p>شيء بسيط أعمله وأعيش معناه.</p></div>
+        <div><span>🌱</span><strong>خطوة جديدة</strong><p>عادة أو قرار أبدأ به بعد المؤتمر.</p></div>
+      </div>
+    `
+  },
+  {
+    title: 'آية اليوم', icon: '📖',
+    html: `
+      <div class="verse-page">
+        <div class="verse-symbol">📖</div>
+        <div class="paper-kicker">كلمة اليوم</div>
+        <h1 class="paper-title">آية اليوم</h1>
+        <div class="verse-box">
+          <span class="quote-mark">“</span>
+          <p>ضع آية اليوم هنا، لتكون هي الكلمة التي نرجع لها وسط كل أحداث البطولة.</p>
+          <span class="verse-ref">— المرجع الكتابي</span>
+        </div>
+        <div class="verse-bottom">احتفظ بالكلمة في قلبك 🤍</div>
+      </div>
+    `
+  },
+  {
+    title: 'التحديات', icon: '⚽',
+    html: `
+      <div class="paper-kicker">جاهز للمباراة؟</div>
+      <h1 class="paper-title">تحديات المؤتمر ⚽</h1>
+      <div class="paper-rule"></div>
+      <div class="challenge-board">
+        <div class="challenge"><span>📖</span><strong>حفظ الآية</strong><b>+3 نقاط</b></div>
+        <div class="challenge"><span>🤝</span><strong>العمل الجماعي</strong><b>+3 نقاط</b></div>
+        <div class="challenge"><span>🙋</span><strong>المشاركة</strong><b>+2 نقاط</b></div>
+        <div class="challenge"><span>⏰</span><strong>الالتزام</strong><b>+2 نقاط</b></div>
+      </div>
+      <div class="challenge-note">كل نقطة بتفرق… وكل خطوة بتبني الفريق.</div>
+    `
+  },
+  {
+    title: 'ملاحظاتي', icon: '📝',
+    html: `
+      <div class="paper-kicker">اكتب اللي عايز تفتكره</div>
+      <h1 class="paper-title">ملاحظاتي 📝</h1>
+      <div class="paper-rule"></div>
+      <div class="notes-paper">
+        <div></div><div></div><div></div><div></div><div></div><div></div>
+      </div>
+      <div class="paper-footer-note">⭐ أهم حاجة أخدتها معايا من المؤتمر: __________________</div>
+    `
+  }
+];
+
+const paper = document.getElementById('pamphletPaper');
+const content = document.getElementById('paperContent');
+const counter = document.getElementById('pageCounter');
+const dots = document.getElementById('pageDots');
+const index = document.getElementById('pamphletIndex');
+const indexList = document.getElementById('indexList');
+let currentPage = 0;
+let turning = false;
+
+function arabicNumber(n) {
+  return String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+}
+
+function renderPage(n, direction = 'next', instant = false) {
+  if (turning || n < 0 || n >= pamphletPages.length || n === currentPage && !instant) return;
+  const page = pamphletPages[n];
+  const update = () => {
+    content.innerHTML = page.html;
+    counter.textContent = `صفحة ${arabicNumber(n + 1)} من ${arabicNumber(pamphletPages.length)}`;
+    [...dots.children].forEach((d, i) => d.classList.toggle('active', i === n));
+    [...indexList.children].forEach((d, i) => d.classList.toggle('active', i === n));
+  };
+
+  if (instant) { update(); return; }
+
+  turning = true;
+  paper.classList.remove('flip-next', 'flip-prev');
+  void paper.offsetWidth;
+  paper.classList.add(direction === 'next' ? 'flip-next' : 'flip-prev');
+  setTimeout(() => {
+    update();
+    paper.classList.remove('flip-next', 'flip-prev');
+    turning = false;
+  }, 430);
+  currentPage = n;
+}
+
+function goToPage(n) {
+  if (n < 0 || n >= pamphletPages.length || turning) return;
+  renderPage(n, n > currentPage ? 'next' : 'prev');
+}
+
+dots.innerHTML = pamphletPages.map((p, i) => `<button type="button" aria-label="${p.title}" data-page="${i}"></button>`).join('');
+indexList.innerHTML = pamphletPages.map((p, i) => `
+  <button type="button" data-page="${i}"><span>${p.icon}</span><strong>${p.title}</strong><small>صفحة ${arabicNumber(i + 1)}</small></button>
+`).join('');
+
+dots.addEventListener('click', e => {
+  const b = e.target.closest('[data-page]');
+  if (b) goToPage(Number(b.dataset.page));
+});
+indexList.addEventListener('click', e => {
+  const b = e.target.closest('[data-page]');
+  if (!b) return;
+  goToPage(Number(b.dataset.page));
+  index.classList.remove('open');
+  index.setAttribute('aria-hidden', 'true');
+});
+
+document.getElementById('prevBtn').addEventListener('click', () => goToPage(currentPage - 1));
+document.getElementById('nextBtn').addEventListener('click', () => goToPage(currentPage + 1));
+document.getElementById('indexBtn').addEventListener('click', () => {
+  index.classList.add('open');
+  index.setAttribute('aria-hidden', 'false');
+});
+document.getElementById('indexClose').addEventListener('click', () => {
+  index.classList.remove('open');
+  index.setAttribute('aria-hidden', 'true');
+});
+index.addEventListener('click', e => {
+  if (e.target === index) {
+    index.classList.remove('open');
+    index.setAttribute('aria-hidden', 'true');
+  }
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') goToPage(currentPage - 1);
+  if (e.key === 'ArrowLeft') goToPage(currentPage + 1);
+  if (e.key === 'Escape') index.classList.remove('open');
+});
+
+let touchStartX = 0;
+let touchStartY = 0;
+paper.addEventListener('touchstart', e => {
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+paper.addEventListener('touchend', e => {
+  const x = e.changedTouches[0].screenX;
+  const y = e.changedTouches[0].screenY;
+  const dx = x - touchStartX;
+  const dy = y - touchStartY;
+  if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) {
+    // RTL: السحب من اليمين لليسار = التالي
+    if (dx < 0) goToPage(currentPage + 1);
+    else goToPage(currentPage - 1);
+  }
+}, { passive: true });
+
+renderPage(0, 'next', true);
+</script>
 </body>
 </html>
