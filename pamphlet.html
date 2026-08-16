@@ -6,7 +6,7 @@
 <title>البامفلت</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=flipbook1">
+<link rel="stylesheet" href="assets/style.css?v=stpageflip-book-2">
 </head>
 <body>
 
@@ -34,18 +34,18 @@
 <main class="pamphlet-book-page">
   <section class="flipbook-stage" aria-label="بامفلت المؤتمر">
     <div class="book-shell">
-      <div class="book-edge book-edge-left" aria-hidden="true"></div>
-      <div id="flipbook" class="flipbook"></div>
-      <div class="book-edge book-edge-right" aria-hidden="true"></div>
+      <div id="flipbook" class="flipbook" aria-label="كتاب البامفلت"></div>
     </div>
 
     <div class="book-controls" aria-label="أدوات تقليب الصفحات">
       <button type="button" class="book-btn" id="prevPage" aria-label="الصفحة السابقة">‹</button>
-      <div class="page-counter"><span id="pageCurrent">1</span><span class="counter-sep">/</span><span>10</span></div>
+      <div class="page-counter" aria-live="polite">
+        <span id="pageCurrent">1</span><span class="counter-sep">/</span><span>10</span>
+      </div>
       <button type="button" class="book-btn" id="nextPage" aria-label="الصفحة التالية">›</button>
     </div>
 
-    <p class="book-hint">اسحب الصفحة لتقليب الكتاب أو استخدم الأسهم</p>
+    <p class="book-hint">اسحب من زاوية الصفحة أو استخدم الأسهم لتقليب الكتاب</p>
   </section>
 </main>
 
@@ -58,17 +58,21 @@
   </div>
 </footer>
 
-<!-- محرك تقليب الصفحات -->
-<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
-<script src="assets/app.js?v=flipbook1"></script>
+<!-- StPageFlip: نفس المحرك المستخدم في الـDemo الذي اخترته -->
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
+<script src="assets/app.js?v=stpageflip-book-2"></script>
 <script>
 (() => {
   function initPamphletBook() {
     const host = document.getElementById('flipbook');
-    if (!host || !window.St || !window.St.PageFlip) return;
+    if (!host || !window.St || !window.St.PageFlip) {
+      console.error('StPageFlip library did not load.');
+      return;
+    }
 
-    // 10 صفحات فارغة حاليًا؛ سنبني محتوى كل صفحة واحدة واحدة لاحقًا.
-    const pages = Array.from({ length: 10 }, (_, i) => {
+    // 10 صفحات فارغة مؤقتًا — سنبني محتوى كل صفحة واحدة واحدة لاحقًا.
+    host.innerHTML = '';
+    for (let i = 0; i < 10; i++) {
       const page = document.createElement('div');
       page.className = 'book-page';
       page.dataset.density = 'soft';
@@ -81,25 +85,30 @@
           <span class="page-number">${i + 1}</span>
         </div>`;
       host.appendChild(page);
-      return page;
-    });
+    }
 
     const pageFlip = new St.PageFlip(host, {
-      width: 620,
-      height: 860,
+      // نسبة صفحة Portrait مثل كتيب حقيقي
+      width: 560,
+      height: 760,
+
+      // Stretch = يملأ المساحة المتاحة مع الحفاظ على النسبة
       size: 'stretch',
       minWidth: 280,
-      maxWidth: 760,
+      maxWidth: 620,
       minHeight: 390,
-      maxHeight: 980,
+      maxHeight: 900,
+
+      // أهم إعدادات الإحساس الواقعي
       drawShadow: true,
-      maxShadowOpacity: 0.42,
-      showCover: false,
-      mobileScrollSupport: true,
-      useMouseEvents: true,
-      swipeDistance: 28,
-      flippingTime: 900,
+      maxShadowOpacity: 0.55,
+      flippingTime: 1050,
       usePortrait: true,
+      mobileScrollSupport: false,
+      swipeDistance: 25,
+      showCover: false,
+      autoSize: true,
+      startZIndex: 0,
       startPage: 0
     });
 
@@ -109,23 +118,25 @@
     const prev = document.getElementById('prevPage');
     const next = document.getElementById('nextPage');
 
-    function update() {
-      const index = pageFlip.getCurrentPageIndex();
-      current.textContent = index + 1;
+    function updateCounter(index = pageFlip.getCurrentPageIndex()) {
+      current.textContent = String(index + 1);
       prev.disabled = index <= 0;
-      next.disabled = index >= 9;
+      next.disabled = index >= pageFlip.getPageCount() - 1;
     }
 
-    pageFlip.on('flip', update);
-    prev.addEventListener('click', () => pageFlip.flipPrev());
-    next.addEventListener('click', () => pageFlip.flipNext());
+    pageFlip.on('flip', (event) => updateCounter(Number(event.data)));
+    pageFlip.on('init', (event) => updateCounter(Number(event.data.page || 0)));
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') pageFlip.flipPrev();
-      if (e.key === 'ArrowLeft') pageFlip.flipNext();
+    prev.addEventListener('click', () => pageFlip.flipPrev('top'));
+    next.addEventListener('click', () => pageFlip.flipNext('bottom'));
+
+    document.addEventListener('keydown', (event) => {
+      if (event.target.matches('input, textarea, select, button, a')) return;
+      if (event.key === 'ArrowRight') pageFlip.flipPrev('top');
+      if (event.key === 'ArrowLeft') pageFlip.flipNext('bottom');
     });
 
-    update();
+    updateCounter(0);
   }
 
   if (document.readyState === 'loading') {
