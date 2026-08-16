@@ -34,15 +34,13 @@
 <main class="pamphlet-book-page">
   <section class="flipbook-stage" aria-label="بامفلت المؤتمر">
     <div class="book-shell">
-      <div class="book-edge book-edge-left" aria-hidden="true"></div>
       <div id="flipbook" class="flipbook"></div>
-      <div class="book-edge book-edge-right" aria-hidden="true"></div>
     </div>
 
     <div class="book-controls" aria-label="أدوات تقليب الصفحات">
-      <button type="button" class="book-btn" id="prevPage" aria-label="الصفحة السابقة">›</button>
-      <div class="page-counter"><span id="pageCurrent">١٠</span><span class="counter-sep">/</span><span>١٠</span></div>
-      <button type="button" class="book-btn" id="nextPage" aria-label="الصفحة التالية">‹</button>
+      <button type="button" class="book-btn book-next" id="nextPage" aria-label="الصفحة التالية">‹</button>
+      <div class="page-counter"><span id="pageCurrent">١</span><span class="counter-sep">/</span><span class="page-total">١٠</span></div>
+      <button type="button" class="book-btn book-prev" id="prevPage" aria-label="الصفحة السابقة">›</button>
     </div>
 
     <p class="book-hint">اسحب الصفحة لتقليب الكتاب أو استخدم الأسهم</p>
@@ -72,10 +70,18 @@
     const host = document.getElementById('flipbook');
     if (!host || !window.St || !window.St.PageFlip) return;
 
-    // 10 صفحات فارغة حاليًا؛ سنبني محتوى كل صفحة واحدة واحدة لاحقًا.
-    const pages = Array.from({ length: 10 }, (_, i) => {
+    const isMobile = window.matchMedia('(max-width: 700px)').matches;
+
+    // على الديسكتوب: كتاب عربي مفتوح من اليمين، لذلك ترتيب العرض ١٠ ← ٩.
+    // على الموبايل: نبدأ من الصفحة ١ ثم ٢ ثم ٣... حتى ١٠.
+    const logicalPages = isMobile
+      ? Array.from({ length: 10 }, (_, i) => i + 1)
+      : Array.from({ length: 10 }, (_, i) => 10 - i);
+
+    const pages = logicalPages.map((number) => {
       const page = document.createElement('div');
       page.className = 'book-page';
+      page.dataset.pageNumber = String(number);
       page.dataset.density = 'soft';
       page.innerHTML = `
         <div class="page-inner">
@@ -83,7 +89,7 @@
           <span class="page-corner page-corner-tr"></span>
           <span class="page-corner page-corner-bl"></span>
           <span class="page-corner page-corner-br"></span>
-          <span class="page-number">${10 - i}</span>
+          <span class="page-number">${toArabicDigits(number)}</span>
         </div>`;
       host.appendChild(page);
       return page;
@@ -94,13 +100,13 @@
       height: 860,
       size: 'stretch',
       minWidth: 280,
-      maxWidth: 760,
+      maxWidth: 820,
       minHeight: 390,
       maxHeight: 980,
       drawShadow: true,
       maxShadowOpacity: 0.42,
       showCover: false,
-      mobileScrollSupport: true,
+      mobileScrollSupport: false,
       useMouseEvents: true,
       swipeDistance: 28,
       flippingTime: 900,
@@ -116,20 +122,67 @@
 
     function update() {
       const index = pageFlip.getCurrentPageIndex();
-      current.textContent = toArabicDigits(10 - index);
-      prev.disabled = index <= 0;
-      next.disabled = index >= 9;
+      const currentPage = Number(pages[index]?.dataset.pageNumber || (isMobile ? index + 1 : 10 - index));
+      current.textContent = toArabicDigits(currentPage);
+
+      // في الموبايل: ١ هو البداية و١٠ النهاية.
+      // في الديسكتوب: نفس ترتيب الكتاب العربي، والعداد يعكس الصفحة المرئية.
+      if (isMobile) {
+        prev.disabled = currentPage <= 1;
+        next.disabled = currentPage >= 10;
+      } else {
+        prev.disabled = index <= 0;
+        next.disabled = index >= 9;
+      }
     }
 
     pageFlip.on('flip', update);
-    prev.addEventListener('click', () => pageFlip.flipPrev());
-    next.addEventListener('click', () => pageFlip.flipNext());
 
+    // الأسهم: التالي يسار، السابق يمين.
+    next.addEventListener('click', () => pageFlip.flipNext());
+    prev.addEventListener('click', () => pageFlip.flipPrev());
+
+    // كيبورد عربي: ← التالي، → السابق.
     document.addEventListener('keydown', (e) => {
-      // اتجاه الكتاب العربي: الصفحة التالية إلى اليسار، والسابقة إلى اليمين.
-      if (e.key === 'ArrowRight') pageFlip.flipPrev();
-      if (e.key === 'ArrowLeft') pageFlip.flipNext();
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        pageFlip.flipNext();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        pageFlip.flipPrev();
+      }
     });
+
+    // على الموبايل: اسحب من الشمال لليمين = التالي.
+    // نعترض اللمس حتى لا يطبّق المحرك اتجاهًا غربيًا تلقائيًا.
+    if (isMobile) {
+      let startX = null;
+      let startY = null;
+
+      host.addEventListener('touchstart', (e) => {
+        if (!e.touches?.[0]) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      }, { passive: true, capture: true });
+
+      host.addEventListener('touchend', (e) => {
+        if (startX === null || !e.changedTouches?.[0]) return;
+
+        const dx = e.changedTouches[0].clientX - startX;
+        const dy = e.changedTouches[0].clientY - startY;
+        startX = startY = null;
+
+        if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+
+        if (dx > 0) {
+          // الشمال → اليمين = التالي
+          pageFlip.flipNext();
+        } else {
+          // اليمين → الشمال = السابق
+          pageFlip.flipPrev();
+        }
+      }, { passive: true, capture: true });
+    }
 
     update();
   }
