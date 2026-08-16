@@ -1537,3 +1537,319 @@ img { max-width: 100%; height: auto; display: block; }
 @media (prefers-reduced-motion: reduce) {
   .pamphlet-paper.flip-next, .pamphlet-paper.flip-prev { animation:none; }
 }
+
+/* ============================================================
+   البامفلت — شكل الكتاب / المرحلة الأولى
+   10 صفحات فارغة + حواف صفحات + تقليب منحني
+   ============================================================ */
+.pamphlet-page-body {
+  background:
+    radial-gradient(circle at 15% 10%, rgba(33,88,214,.08), transparent 30%),
+    radial-gradient(circle at 85% 12%, rgba(242,183,5,.08), transparent 26%),
+    linear-gradient(135deg, #eef5fd 0%, #e4edf9 52%, #f8fafc 100%);
+}
+
+.pamphlet-book-shell {
+  min-height: calc(100vh - 74px);
+  height: calc(100vh - 74px);
+  box-sizing: border-box;
+  padding: 8px 18px 10px;
+}
+
+.pamphlet-topbar {
+  width: min(1180px, 100%);
+  min-height: 38px;
+  margin-bottom: 5px;
+}
+
+.pamphlet-book-title {
+  color: var(--navy);
+  font-size: .88rem;
+  letter-spacing: .1px;
+}
+
+.pamphlet-page-counter {
+  font-size: .76rem;
+}
+
+.pamphlet-book {
+  width: min(1180px, 100%);
+  min-height: 0;
+  flex: 1 1 auto;
+  align-items: stretch;
+  perspective: 2200px;
+  isolation: isolate;
+}
+
+/* كتلة صفحات الكتاب خلف الصفحة الحالية */
+.pamphlet-book::before,
+.pamphlet-book::after {
+  content: '';
+  position: absolute;
+  top: 7px;
+  bottom: 5px;
+  pointer-events: none;
+  border-radius: 5px 14px 14px 5px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #fbfaf5 0,
+      #fbfaf5 2px,
+      #e1e1dc 3px,
+      #fbfaf5 4px
+    );
+  box-shadow: 0 12px 24px rgba(20,51,94,.12);
+}
+
+.pamphlet-book::before {
+  width: calc(100% - 28px);
+  right: 5px;
+  transform: translate(7px, 4px);
+  z-index: 0;
+}
+
+.pamphlet-book::after {
+  width: calc(100% - 20px);
+  right: 1px;
+  transform: translate(3px, 2px);
+  z-index: 1;
+  opacity: .9;
+}
+
+.pamphlet-paper-shadow {
+  inset: 12px 0 0;
+  max-width: none;
+  width: calc(100% - 12px);
+  border-radius: 5px 16px 16px 5px;
+  filter: blur(18px);
+  background: rgba(20,51,94,.18);
+  transform: translate(3px, 12px);
+  z-index: 0;
+}
+
+.pamphlet-paper {
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+  border-radius: 5px 18px 18px 5px;
+  border: 1px solid rgba(119,99,61,.20);
+  background:
+    radial-gradient(circle at 18% 14%, rgba(242,183,5,.035), transparent 24%),
+    radial-gradient(circle at 82% 84%, rgba(33,88,214,.035), transparent 28%),
+    repeating-linear-gradient(0deg, rgba(80,65,40,.018) 0, rgba(80,65,40,.018) 1px, transparent 1px, transparent 5px),
+    #fffefa;
+  box-shadow:
+    0 18px 38px rgba(20,51,94,.17),
+    inset -14px 0 22px rgba(45,34,18,.045),
+    inset 0 1px 0 rgba(255,255,255,.9);
+  transform-origin: right center;
+  backface-visibility: hidden;
+  overflow: hidden;
+  z-index: 3;
+  touch-action: pan-y;
+}
+
+/* حافة التجليد / مكان انحناء الورقة */
+.pamphlet-paper::before {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(64,48,25,.035) 45%, rgba(64,48,25,.11) 100%),
+    repeating-linear-gradient(to bottom, rgba(90,75,50,.10) 0 1px, transparent 1px 4px);
+  opacity: .62;
+  box-shadow: inset 1px 0 0 rgba(255,255,255,.8);
+}
+
+/* حافة ورقة مرسومة أسفل اليمين */
+.pamphlet-paper::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 110px;
+  height: 85px;
+  background: radial-gradient(ellipse at 100% 100%, rgba(70,50,20,.10), transparent 65%);
+  pointer-events: none;
+}
+
+.paper-content {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paper-content::after,
+.paper-corner,
+.paper-content > *:not(.blank-book-page) {
+  display: none;
+}
+
+.blank-book-page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+
+.blank-page-number {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  color: rgba(20,51,94,.20);
+  font: 600 .68rem var(--font-body);
+  letter-spacing: 2px;
+}
+
+/* طبقات الورق على حافة الكتاب */
+.blank-book-page::before,
+.blank-book-page::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 9%;
+  bottom: 9%;
+  width: 7px;
+  background: repeating-linear-gradient(to bottom, rgba(90,75,50,.12) 0 1px, transparent 1px 4px);
+  opacity: .7;
+}
+
+.blank-book-page::after {
+  left: 0;
+  right: auto;
+  width: 3px;
+  opacity: .18;
+}
+
+/* تقليب أكثر وضوحًا: الصفحة تنحني ثم تعود، مع ظل/لمعة أثناء الحركة */
+.pamphlet-paper.flip-next,
+.pamphlet-paper.flip-prev {
+  animation-duration: .72s;
+  animation-timing-function: cubic-bezier(.22,.75,.22,1);
+  animation-fill-mode: both;
+}
+
+.pamphlet-paper.flip-next {
+  animation-name: pamphletRealFlipNext;
+}
+
+.pamphlet-paper.flip-prev {
+  animation-name: pamphletRealFlipPrev;
+}
+
+@keyframes pamphletRealFlipNext {
+  0% {
+    transform: perspective(2200px) rotateY(0deg) translateZ(0) scaleX(1);
+    box-shadow: 0 18px 38px rgba(20,51,94,.17), inset -14px 0 22px rgba(45,34,18,.045);
+  }
+  22% {
+    transform: perspective(2200px) rotateY(-16deg) translateZ(8px) skewY(-.4deg) scaleX(.985);
+    box-shadow: 16px 20px 42px rgba(20,51,94,.23), inset -30px 0 30px rgba(45,34,18,.08);
+  }
+  52% {
+    transform: perspective(2200px) rotateY(-74deg) translateZ(12px) skewY(-1deg) scaleX(.94);
+    box-shadow: 34px 20px 46px rgba(20,51,94,.28), inset -44px 0 38px rgba(45,34,18,.11);
+  }
+  72% {
+    transform: perspective(2200px) rotateY(-20deg) translateZ(6px) skewY(.35deg) scaleX(.985);
+    box-shadow: -6px 18px 34px rgba(20,51,94,.20), inset -18px 0 25px rgba(45,34,18,.055);
+  }
+  100% {
+    transform: perspective(2200px) rotateY(0deg) translateZ(0) skewY(0) scaleX(1);
+    box-shadow: 0 18px 38px rgba(20,51,94,.17), inset -14px 0 22px rgba(45,34,18,.045);
+  }
+}
+
+@keyframes pamphletRealFlipPrev {
+  0% {
+    transform: perspective(2200px) rotateY(0deg) translateZ(0) scaleX(1);
+  }
+  22% {
+    transform: perspective(2200px) rotateY(16deg) translateZ(8px) skewY(.4deg) scaleX(.985);
+  }
+  52% {
+    transform: perspective(2200px) rotateY(74deg) translateZ(12px) skewY(1deg) scaleX(.94);
+  }
+  72% {
+    transform: perspective(2200px) rotateY(20deg) translateZ(6px) skewY(-.35deg) scaleX(.985);
+  }
+  100% {
+    transform: perspective(2200px) rotateY(0deg) translateZ(0) skewY(0) scaleX(1);
+  }
+}
+
+.pamphlet-controls {
+  width: min(1180px, 100%);
+  min-height: 38px;
+  padding-top: 5px;
+}
+
+.page-arrow {
+  width: 38px;
+  height: 38px;
+  background: rgba(255,255,255,.90);
+  backdrop-filter: blur(4px);
+}
+
+.pamphlet-hint {
+  margin-top: 2px;
+  opacity: .8;
+}
+
+@media (max-width: 760px) {
+  .pamphlet-book-shell {
+    min-height: calc(100svh - 70px);
+    height: calc(100svh - 70px);
+    padding: 5px 6px 7px;
+  }
+
+  .pamphlet-topbar {
+    min-height: 31px;
+    margin-bottom: 3px;
+  }
+
+  .pamphlet-book-title { font-size: .68rem; }
+  .pamphlet-page-counter { font-size: .62rem; }
+  .pamphlet-index-btn { padding: 5px 9px; font-size: .64rem; }
+
+  .pamphlet-paper {
+    border-radius: 4px 12px 12px 4px;
+  }
+
+  .pamphlet-book::before { right: 3px; transform: translate(5px, 3px); }
+  .pamphlet-book::after { right: 1px; transform: translate(2px, 1px); }
+
+  .pamphlet-controls {
+    min-height: 34px;
+    padding-top: 3px;
+  }
+
+  .page-arrow { width: 34px; height: 34px; font-size: 1.55rem; }
+  .page-dots { gap: 4px; }
+  .page-dots button { width: 5px; height: 5px; }
+  .page-dots button.active { width: 16px; }
+  .pamphlet-hint { display: none; }
+}
+
+@media (max-width: 480px) {
+  .pamphlet-book-shell {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .pamphlet-book-title { display: none; }
+  .pamphlet-topbar { grid-template-columns: 1fr auto; }
+  .pamphlet-page-counter { justify-self: start; }
+  .pamphlet-index-btn { justify-self: end; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pamphlet-paper.flip-next,
+  .pamphlet-paper.flip-prev {
+    animation: none;
+  }
+}
