@@ -1383,3 +1383,21 @@ img { max-width: 100%; height: auto; display: block; }
   .book-hint { font-size: .66rem; }
 }
 
+
+
+/* ---------- Final Arabic pamphlet direction ---------- */
+#book {
+  direction: rtl;
+}
+
+.pamphlet-controls,
+.book-controls,
+.flip-controls {
+  direction: rtl;
+}
+
+@media (max-width: 700px) {
+  #book {
+    direction: rtl;
+  }
+}

@@ -465,3 +465,64 @@ function openLightbox(url) {
 function closeLightbox() {
   document.querySelector('[data-lightbox]').classList.remove('open');
 }
+
+
+/* ---------- Arabic book direction ---------- */
+(function () {
+  const book = document.getElementById('book');
+  if (!book) return;
+
+  // Mark the viewer as RTL for CSS/layout.
+  book.setAttribute('dir', 'rtl');
+  document.documentElement.setAttribute('dir', 'rtl');
+
+  // Arabic book semantics:
+  // Swipe left -> right = NEXT page
+  // Swipe right -> left = PREVIOUS page
+  let startX = null;
+  let startY = null;
+  const threshold = 45;
+
+  book.addEventListener('touchstart', function (e) {
+    if (!e.touches || !e.touches[0]) return;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  }, {passive: true});
+
+  book.addEventListener('touchend', function (e) {
+    if (startX === null || !e.changedTouches || !e.changedTouches[0]) return;
+
+    const endX = e.changedTouches[0].clientX;
+    const endY = e.changedTouches[0].clientY;
+    const dx = endX - startX;
+    const dy = endY - startY;
+
+    startX = startY = null;
+
+    // Ignore mostly vertical gestures.
+    if (Math.abs(dx) < threshold || Math.abs(dx) < Math.abs(dy)) return;
+
+    // The app's next/prev functions are expected to exist.
+    if (dx > 0) {
+      if (typeof nextPage === 'function') nextPage();
+    } else {
+      if (typeof prevPage === 'function') prevPage();
+    }
+  }, {passive: true});
+
+  // Keep keyboard semantics Arabic as well:
+  // ArrowLeft = next, ArrowRight = previous.
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') {
+      if (typeof nextPage === 'function') {
+        e.preventDefault();
+        nextPage();
+      }
+    } else if (e.key === 'ArrowRight') {
+      if (typeof prevPage === 'function') {
+        e.preventDefault();
+        prevPage();
+      }
+    }
+  });
+})();
