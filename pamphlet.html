@@ -2,13 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>البامفلت | مؤتمر شباب ثانوي</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>البامفلت</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=3">
+<link rel="stylesheet" href="assets/style.css?v=flipbook1">
 </head>
-<body class="pamphlet-page-body">
+<body>
 
 <header class="site-header">
   <div class="container">
@@ -31,187 +31,110 @@
   </div>
 </header>
 
-<main class="pamphlet-book-shell">
-  <div class="pamphlet-topbar">
-    <div class="pamphlet-book-title">📖 بامفلت المؤتمر</div>
-    <div class="pamphlet-page-counter" id="pageCounter">صفحة ١ من ١٠</div>
-    <button class="pamphlet-index-btn" id="indexBtn" type="button">الفهرس</button>
-  </div>
+<main class="pamphlet-book-page">
+  <section class="flipbook-stage" aria-label="بامفلت المؤتمر">
+    <div class="book-shell">
+      <div class="book-edge book-edge-left" aria-hidden="true"></div>
+      <div id="flipbook" class="flipbook"></div>
+      <div class="book-edge book-edge-right" aria-hidden="true"></div>
+    </div>
 
-  <div class="pamphlet-book" id="pamphletBook" aria-live="polite">
-    <div class="pamphlet-paper-shadow"></div>
-    <article class="pamphlet-paper" id="pamphletPaper">
-      <div class="paper-corner paper-corner-top"></div>
-      <div class="paper-corner paper-corner-bottom"></div>
-      <div class="paper-content" id="paperContent"></div>
-    </article>
-  </div>
+    <div class="book-controls" aria-label="أدوات تقليب الصفحات">
+      <button type="button" class="book-btn" id="prevPage" aria-label="الصفحة السابقة">‹</button>
+      <div class="page-counter"><span id="pageCurrent">1</span><span class="counter-sep">/</span><span>10</span></div>
+      <button type="button" class="book-btn" id="nextPage" aria-label="الصفحة التالية">›</button>
+    </div>
 
-  <div class="pamphlet-controls">
-    <button class="page-arrow" id="prevBtn" type="button" aria-label="الصفحة السابقة">‹</button>
-    <div class="page-dots" id="pageDots"></div>
-    <button class="page-arrow" id="nextBtn" type="button" aria-label="الصفحة التالية">›</button>
-  </div>
-
-  <div class="pamphlet-hint">اسحب يمينًا أو يسارًا لقلب الصفحة • أو استخدم الأسهم</div>
+    <p class="book-hint">اسحب الصفحة لتقليب الكتاب أو استخدم الأسهم</p>
+  </section>
 </main>
 
-<div class="pamphlet-index" id="pamphletIndex" aria-hidden="true">
-  <div class="pamphlet-index-card">
-    <button class="index-close" id="indexClose" type="button" aria-label="إغلاق">×</button>
-    <div class="index-title">فهرس البامفلت</div>
-    <div class="index-list" id="indexList"></div>
-  </div>
-</div>
-
-<script src="assets/app.js?v=3"></script>
-<script>
-markActiveNav();
-
-/* ----------------------------------------------------------
-   البامفلت - مرحلة تصميم الكتاب فقط
-   10 صفحات فارغة جاهزة لاستقبال المحتوى لاحقًا.
-   ---------------------------------------------------------- */
-const pamphletPages = Array.from({ length: 10 }, (_, i) => ({
-  title: `صفحة ${i + 1}`,
-  icon: '📖',
-  html: `
-    <div class="blank-book-page" aria-label="صفحة ${i + 1}">
-      <span class="blank-page-number">${String(i + 1).padStart(2, '0')}</span>
+<footer class="site-footer">
+  <div class="container footer-flex">
+    <div class="footer-verse" data-footer-verse></div>
+    <div class="footer-qr-badge">
+      <img src="assets/img/qr-code.png" alt="امسح لفتح الموقع">
     </div>
-  `
-}));
+  </div>
+</footer>
 
-const paper = document.getElementById('pamphletPaper');
-const content = document.getElementById('paperContent');
-const counter = document.getElementById('pageCounter');
-const dots = document.getElementById('pageDots');
-const index = document.getElementById('pamphletIndex');
-const indexList = document.getElementById('indexList');
-let currentPage = 0;
-let turning = false;
-let touchStartX = 0;
-let touchStartY = 0;
+<!-- محرك تقليب الصفحات -->
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+<script src="assets/app.js?v=flipbook1"></script>
+<script>
+(() => {
+  function initPamphletBook() {
+    const host = document.getElementById('flipbook');
+    if (!host || !window.St || !window.St.PageFlip) return;
 
-function arabicNumber(n) {
-  return String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
-}
+    // 10 صفحات فارغة حاليًا؛ سنبني محتوى كل صفحة واحدة واحدة لاحقًا.
+    const pages = Array.from({ length: 10 }, (_, i) => {
+      const page = document.createElement('div');
+      page.className = 'book-page';
+      page.dataset.density = 'soft';
+      page.innerHTML = `
+        <div class="page-inner">
+          <span class="page-corner page-corner-tl"></span>
+          <span class="page-corner page-corner-tr"></span>
+          <span class="page-corner page-corner-bl"></span>
+          <span class="page-corner page-corner-br"></span>
+          <span class="page-number">${i + 1}</span>
+        </div>`;
+      host.appendChild(page);
+      return page;
+    });
 
-function updatePageChrome(n) {
-  counter.textContent = `صفحة ${arabicNumber(n + 1)} من ${arabicNumber(pamphletPages.length)}`;
-  [...dots.children].forEach((d, i) => d.classList.toggle('active', i === n));
-  [...indexList.children].forEach((d, i) => d.classList.toggle('active', i === n));
-}
+    const pageFlip = new St.PageFlip(host, {
+      width: 620,
+      height: 860,
+      size: 'stretch',
+      minWidth: 280,
+      maxWidth: 760,
+      minHeight: 390,
+      maxHeight: 980,
+      drawShadow: true,
+      maxShadowOpacity: 0.42,
+      showCover: false,
+      mobileScrollSupport: true,
+      useMouseEvents: true,
+      swipeDistance: 28,
+      flippingTime: 900,
+      usePortrait: true,
+      startPage: 0
+    });
 
-function setPage(n) {
-  const page = pamphletPages[n];
-  content.innerHTML = page.html;
-  updatePageChrome(n);
-}
+    pageFlip.loadFromHTML(host.querySelectorAll('.book-page'));
 
-function renderPage(n, direction = 'next', instant = false) {
-  if (turning || n < 0 || n >= pamphletPages.length || n === currentPage && !instant) return;
+    const current = document.getElementById('pageCurrent');
+    const prev = document.getElementById('prevPage');
+    const next = document.getElementById('nextPage');
 
-  if (instant) {
-    currentPage = n;
-    setPage(n);
-    return;
+    function update() {
+      const index = pageFlip.getCurrentPageIndex();
+      current.textContent = index + 1;
+      prev.disabled = index <= 0;
+      next.disabled = index >= 9;
+    }
+
+    pageFlip.on('flip', update);
+    prev.addEventListener('click', () => pageFlip.flipPrev());
+    next.addEventListener('click', () => pageFlip.flipNext());
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') pageFlip.flipPrev();
+      if (e.key === 'ArrowLeft') pageFlip.flipNext();
+    });
+
+    update();
   }
 
-  turning = true;
-  paper.classList.remove('flip-next', 'flip-prev');
-  void paper.offsetWidth;
-  paper.classList.add(direction === 'next' ? 'flip-next' : 'flip-prev');
-
-  setTimeout(() => {
-    currentPage = n;
-    setPage(n);
-    paper.classList.remove('flip-next', 'flip-prev');
-    turning = false;
-  }, 680);
-}
-
-function goToPage(n) {
-  if (n < 0 || n >= pamphletPages.length || turning) return;
-  renderPage(n, n > currentPage ? 'next' : 'prev');
-}
-
-/* النقاط السفلية */
-dots.innerHTML = pamphletPages.map((p, i) =>
-  `<button type="button" aria-label="صفحة ${i + 1}" data-page="${i}"></button>`
-).join('');
-
-/* فهرس بسيط مؤقتًا - المحتوى سنضعه لاحقًا */
-indexList.innerHTML = pamphletPages.map((p, i) => `
-  <button type="button" data-page="${i}">
-    <span>📖</span>
-    <strong>صفحة ${arabicNumber(i + 1)}</strong>
-    <small>من أصل ${arabicNumber(pamphletPages.length)} صفحات</small>
-  </button>
-`).join('');
-
-dots.addEventListener('click', e => {
-  const b = e.target.closest('[data-page]');
-  if (b) goToPage(Number(b.dataset.page));
-});
-
-indexList.addEventListener('click', e => {
-  const b = e.target.closest('[data-page]');
-  if (!b) return;
-  goToPage(Number(b.dataset.page));
-  index.classList.remove('open');
-  index.setAttribute('aria-hidden', 'true');
-});
-
-document.getElementById('prevBtn').addEventListener('click', () => goToPage(currentPage - 1));
-document.getElementById('nextBtn').addEventListener('click', () => goToPage(currentPage + 1));
-
-document.getElementById('indexBtn').addEventListener('click', () => {
-  index.classList.add('open');
-  index.setAttribute('aria-hidden', 'false');
-});
-
-document.getElementById('indexClose').addEventListener('click', () => {
-  index.classList.remove('open');
-  index.setAttribute('aria-hidden', 'true');
-});
-
-index.addEventListener('click', e => {
-  if (e.target === index) {
-    index.classList.remove('open');
-    index.setAttribute('aria-hidden', 'true');
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPamphletBook);
+  } else {
+    initPamphletBook();
   }
-});
-
-/* لوحة المفاتيح */
-document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight') goToPage(currentPage - 1);
-  if (e.key === 'ArrowLeft') goToPage(currentPage + 1);
-  if (e.key === 'Escape') {
-    index.classList.remove('open');
-    index.setAttribute('aria-hidden', 'true');
-  }
-});
-
-/* السحب على الموبايل */
-paper.addEventListener('touchstart', e => {
-  touchStartX = e.changedTouches[0].screenX;
-  touchStartY = e.changedTouches[0].screenY;
-}, { passive: true });
-
-paper.addEventListener('touchend', e => {
-  const x = e.changedTouches[0].screenX;
-  const y = e.changedTouches[0].screenY;
-  const dx = x - touchStartX;
-  const dy = y - touchStartY;
-
-  if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) {
-    if (dx < 0) goToPage(currentPage + 1);
-    else goToPage(currentPage - 1);
-  }
-}, { passive: true });
-
-setPage(0);
+})();
 </script>
+<script>markActiveNav(); renderFooterVerse(5);</script>
 </body>
 </html>
