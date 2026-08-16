@@ -127,6 +127,95 @@ function renderTicker(changeLog, schedule) {
   });
 }
 
+// ---------- كتاب البامفلت المتقلب (Flipbook) ----------
+function initFlipbook() {
+  const stage = document.querySelector('[data-flip-stage]');
+  if (!stage) return;
+
+  const pages = Array.from(stage.querySelectorAll('.flip-page'));
+  const total = pages.length;
+  let current = 1;
+  let animating = false;
+
+  const counterCur = document.querySelector('[data-flip-current]');
+  const counterTotal = document.querySelector('[data-flip-total]');
+  const prevBtns = document.querySelectorAll('[data-flip-prev]');
+  const nextBtns = document.querySelectorAll('[data-flip-next]');
+  const navLinks = document.querySelectorAll('[data-mini-nav] a');
+
+  if (counterTotal) counterTotal.textContent = total;
+
+  function updateUI() {
+    if (counterCur) counterCur.textContent = current;
+    prevBtns.forEach(b => b.disabled = current === 1);
+    nextBtns.forEach(b => b.disabled = current === total);
+    navLinks.forEach(a => {
+      const idx = Number(a.getAttribute('data-page'));
+      a.classList.toggle('active', idx === current);
+    });
+  }
+
+  function goTo(newIndex) {
+    if (animating || newIndex < 1 || newIndex > total || newIndex === current) return;
+    const direction = newIndex > current ? 'next' : 'prev';
+    const from = pages[current - 1];
+    const to = pages[newIndex - 1];
+    animating = true;
+
+    to.style.transition = 'none';
+    to.style.transformOrigin = direction === 'next' ? 'left center' : 'right center';
+    to.style.transform = direction === 'next' ? 'rotateY(130deg)' : 'rotateY(-130deg)';
+    to.style.opacity = '0';
+    to.style.zIndex = 6;
+    void to.offsetWidth; // إجبار المتصفح يطبق القيم اللي فوق قبل ما نبدأ الحركة
+
+    to.style.transition = 'transform 0.55s ease, opacity 0.45s ease';
+    to.style.transform = 'rotateY(0deg)';
+    to.style.opacity = '1';
+    to.classList.add('active');
+
+    from.style.transformOrigin = direction === 'next' ? 'right center' : 'left center';
+    from.style.transition = 'transform 0.55s ease, opacity 0.45s ease';
+    from.style.transform = direction === 'next' ? 'rotateY(-130deg)' : 'rotateY(130deg)';
+    from.style.opacity = '0';
+    from.style.zIndex = 5;
+
+    setTimeout(() => {
+      from.classList.remove('active');
+      from.style.zIndex = '';
+      to.style.zIndex = '';
+      animating = false;
+    }, 560);
+
+    current = newIndex;
+    updateUI();
+  }
+
+  prevBtns.forEach(b => b.addEventListener('click', () => goTo(current - 1)));
+  nextBtns.forEach(b => b.addEventListener('click', () => goTo(current + 1)));
+  navLinks.forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      goTo(Number(a.getAttribute('data-page')));
+    });
+  });
+
+  // السحب باللمس على الموبايل
+  let touchStartX = null;
+  stage.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener('touchend', (e) => {
+    if (touchStartX === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 45) {
+      // السحب من اليمين لليسار (dx سالب) => الصفحة التالية (متوافق مع اتجاه RTL)
+      if (dx < 0) goTo(current + 1); else goTo(current - 1);
+    }
+    touchStartX = null;
+  }, { passive: true });
+
+  updateUI();
+}
+
 // ---------- فتح/قفل قائمة الموبايل ----------
 function toggleNav() {
   const nav = document.getElementById('mainNav');
