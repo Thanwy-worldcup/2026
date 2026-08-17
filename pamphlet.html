@@ -115,14 +115,21 @@
             </div>
           </div>`;
       } else {
-        page.innerHTML = `
-          <div class="page-inner">
-            <span class="page-corner page-corner-tl"></span>
-            <span class="page-corner page-corner-tr"></span>
-            <span class="page-corner page-corner-bl"></span>
-            <span class="page-corner page-corner-br"></span>
-            <span class="page-number">${toArabicDigits(spec.number)}</span>
-          </div>`;
+        if (spec.number === 1) {
+          page.innerHTML = `
+            <div class="page-inner page-image-inner">
+              <img class="pamphlet-page-image" src="assets/img/pamphlet-1.jpg" alt="صفحة البامفلت رقم ١">
+            </div>`;
+        } else {
+          page.innerHTML = `
+            <div class="page-inner">
+              <span class="page-corner page-corner-tl"></span>
+              <span class="page-corner page-corner-tr"></span>
+              <span class="page-corner page-corner-bl"></span>
+              <span class="page-corner page-corner-br"></span>
+              <span class="page-number">${toArabicDigits(spec.number)}</span>
+            </div>`;
+        }
       }
 
       host.appendChild(page);
