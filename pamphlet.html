@@ -668,48 +668,25 @@
 
           else {
 
-            /*
-             * الصفحة رقم 12 فاضية عمدًا.
-             *
-             * السبب:
-             * لازم يكون عندنا عدد زوجي من الصفحات
-             * الداخلية حتى يظل الغلاف الخلفي
-             * لوحده على الديسكتوب.
-             */
+         page.innerHTML = `
 
-            if (spec.number === 12) {
+  <div class="page-inner page-image-inner">
 
-              page.innerHTML = `
+    <img
+      class="pamphlet-page-image"
 
-                <div class="page-inner">
+      src="assets/img/pamphlet-${spec.number}.jpg"
 
-                  <div class="blank-page"></div>
+      alt="صفحة البامفلت رقم ${toArabicDigits(spec.number)}"
 
-                </div>
+      loading="eager"
 
-              `;
+      onerror="console.error('لم يتم العثور على صورة الصفحة ${spec.number}:', this.src);"
+    >
 
-            }
+  </div>
 
-            else {
-
-              page.innerHTML = `
-
-                <div class="page-inner page-image-inner">
-
-                  <img
-                    class="pamphlet-page-image"
-
-                    src="assets/img/pamphlet-${spec.number}.jpg"
-
-                    alt="صفحة البامفلت رقم ${toArabicDigits(spec.number)}"
-
-                    loading="eager"
-                  >
-
-                </div>
-
-              `;
+`;
 
             }
 
