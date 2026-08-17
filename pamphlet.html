@@ -6,7 +6,7 @@
 <title>البامفلت</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=flipbook1">
+<link rel="stylesheet" href="assets/style.css?v=flipbook3">
 </head>
 <body>
 
@@ -39,7 +39,7 @@
 
     <div class="book-controls" aria-label="أدوات تقليب الصفحات">
       <button type="button" class="book-btn book-next" id="nextPage" aria-label="الصفحة التالية">‹</button>
-      <div class="page-counter"><span id="pageCurrent">١</span><span class="counter-sep">/</span><span class="page-total">١٠</span></div>
+      <div class="page-counter"><span id="pageCurrent">١</span><span class="counter-sep">/</span><span class="page-total">١٣</span></div>
       <button type="button" class="book-btn book-prev" id="prevPage" aria-label="الصفحة السابقة">›</button>
     </div>
 
@@ -58,7 +58,7 @@
 
 <!-- محرك تقليب الصفحات -->
 <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
-<script src="assets/app.js?v=flipbook-arabic-rtl2"></script>
+<script src="assets/app.js?v=flipbook-arabic-rtl4"></script>
 <script>
 (() => {
   const ARABIC_DIGITS = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
@@ -76,8 +76,8 @@
     // بعكس اتجاه الكتاب الغربي. ترتيب المحرك معكوس عمدًا، ونبدأ من الغلاف
     // الموجود في آخر عنصر ثم نتقدم باستخدام اتجاه BACK داخل StPageFlip.
     // Desktop: بعد فتح الغلاف يظهر ١ على اليمين و٢ على اليسار.
-    // Mobile: الغلاف ← ١ ← ٢ ← ... ← ١٠ ← الغلاف الخلفي.
-    const internalPages = Array.from({ length: 10 }, (_, i) => 10 - i);
+    // Mobile: الغلاف ← الصفحات المرقمة بالترتيب ← الغلاف الخلفي.
+    const internalPages = [13,12,11,10,9,8,6,5,4,3,2,1];
 
     const pageSpecs = [
       { type: 'back', label: 'النهاية' },
@@ -115,21 +115,10 @@
             </div>
           </div>`;
       } else {
-        if (spec.number === 1) {
-          page.innerHTML = `
-            <div class="page-inner page-image-inner">
-              <img class="pamphlet-page-image" src="assets/img/pamphlet-1.jpg" alt="صفحة البامفلت رقم ١">
-            </div>`;
-        } else {
-          page.innerHTML = `
-            <div class="page-inner">
-              <span class="page-corner page-corner-tl"></span>
-              <span class="page-corner page-corner-tr"></span>
-              <span class="page-corner page-corner-bl"></span>
-              <span class="page-corner page-corner-br"></span>
-              <span class="page-number">${toArabicDigits(spec.number)}</span>
-            </div>`;
-        }
+        page.innerHTML = `
+          <div class="page-inner page-image-inner">
+            <img class="pamphlet-page-image" src="assets/img/pamphlet-${spec.number}.jpg" alt="صفحة البامفلت رقم ${toArabicDigits(spec.number)}">
+          </div>`;
       }
 
       host.appendChild(page);
@@ -164,14 +153,11 @@
 
     function getLogicalCurrentPage() {
       const index = pageFlip.getCurrentPageIndex();
-
-      // الغلاف الأمامي هو آخر عنصر في ترتيب المحرك.
-      if (index === pages.length - 1) return 0;
-      // الغلاف الخلفي في البداية.
-      if (index === 0) return 11;
-
-      // ترتيب المحرك: ١٠،٩،٨...١ ثم الغلاف.
-      return 11 - index;
+      const spec = pageSpecs[index];
+      if (!spec) return 0;
+      if (spec.type === 'cover') return 0;
+      if (spec.type === 'back') return 14;
+      return spec.number;
     }
 
     function update() {
@@ -179,7 +165,7 @@
       const currentPage = getLogicalCurrentPage();
 
       // لا نعرض رقمًا على الغلافين المغلقين.
-      if (currentPage === 0 || currentPage === 11) {
+      if (currentPage === 0 || currentPage === 14) {
         current.textContent = '١';
         if (controls) controls.classList.add('on-cover');
       } else {
@@ -284,7 +270,7 @@
     }
 
     // الغلاف نفسه قابل للضغط لفتحه.
-    const cover = pages[0];
+    const cover = pages[pages.length - 1];
     if (cover) {
       cover.addEventListener('click', () => {
         if (pageFlip.getCurrentPageIndex() === pages.length - 1) arabicNext();
