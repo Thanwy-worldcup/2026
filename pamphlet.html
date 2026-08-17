@@ -14,7 +14,7 @@
     rel="stylesheet"
   >
 
-  <link rel="stylesheet" href="assets/style.css?v=flipbook6">
+  <link rel="stylesheet" href="assets/style.css?v=flipbook8">
 
   <style>
 
@@ -40,9 +40,6 @@
       margin: 0 auto;
     }
 
-    /*
-     * منع الصور من الخروج عن حدود الصفحة
-     */
     .book-page {
       overflow: hidden;
       background: #fff;
@@ -58,67 +55,86 @@
       background: #fff;
     }
 
-    /*
-     * صفحات البامفلت
-     */
+
+    /* =====================================================
+       صفحات البامفلت
+    ===================================================== */
+
     .pamphlet-page-image {
       display: block;
+
       width: 100%;
       height: 100%;
+
       object-fit: contain;
       object-position: center center;
+
       background: #fff;
+
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
-    /*
-     * الغلاف الأمامي
-     */
+
+    /* =====================================================
+       الغلاف الأمامي
+    ===================================================== */
+
     .cover-image {
       width: 100%;
       height: 100%;
+
       position: relative;
       overflow: hidden;
+
       background: #fff;
     }
 
     .cover-image > img {
       width: 100%;
       height: 100%;
+
       display: block;
+
       object-fit: contain;
       object-position: center;
+
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
-    /*
-     * الغلاف الخلفي
-     */
+
+    /* =====================================================
+       الغلاف الخلفي
+    ===================================================== */
+
     .back-cover-inner {
       width: 100%;
       height: 100%;
+
       position: relative;
+
       background: #fff;
     }
 
     .pamphlet-back-cover-image {
       width: 100%;
       height: 100%;
+
       display: block;
+
       object-fit: contain;
       object-position: center;
+
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
-    /*
-     * الصفحة 12 الفاضية
-     */
-    .blank-page {
-      width: 100%;
-      height: 100%;
-      background: #fff;
-    }
 
-    /*
-     * محتوى بديل لو صورة الغلاف غير موجودة
-     */
+    /* =====================================================
+       Fallback للغلاف
+    ===================================================== */
+
     .cover-placeholder-content,
     .back-cover-fallback {
       display: none;
@@ -126,13 +142,19 @@
 
     .cover-placeholder .cover-placeholder-content,
     .back-cover-placeholder .back-cover-fallback {
+
       display: flex;
+
       width: 100%;
       height: 100%;
+
       align-items: center;
       justify-content: center;
+
       flex-direction: column;
+
       gap: 12px;
+
       font-family: "Cairo", sans-serif;
     }
 
@@ -155,12 +177,11 @@
       font-size: 15px;
     }
 
-    /*
-     * على الديسكتوب:
-     *
-     * الغلاف الأمامي والخلفي Single Page
-     * والداخل Spreads من صفحتين.
-     */
+
+    /* =====================================================
+       Desktop
+    ===================================================== */
+
     @media (min-width: 701px) {
 
       .book-shell {
@@ -174,10 +195,10 @@
     }
 
 
-    /*
-     * على الموبايل:
-     * صفحة واحدة.
-     */
+    /* =====================================================
+       Mobile
+    ===================================================== */
+
     @media (max-width: 700px) {
 
       .book-shell {
@@ -197,6 +218,10 @@
 
 <body>
 
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header class="site-header">
 
@@ -272,6 +297,10 @@
 
 
 
+<!-- =====================================================
+     FLIPBOOK
+===================================================== -->
+
 <main class="pamphlet-book-page">
 
   <section
@@ -289,12 +318,17 @@
     </div>
 
 
+    <!-- =================================================
+         CONTROLS
+    ================================================= -->
+
     <div
       class="book-controls"
       aria-label="أدوات تقليب الصفحات"
     >
 
-      <!-- التالي في الكتاب العربي -->
+      <!-- التالي -->
+
       <button
         type="button"
         class="book-btn book-next"
@@ -304,6 +338,8 @@
         ‹
       </button>
 
+
+      <!-- رقم الصفحة -->
 
       <div class="page-counter">
 
@@ -323,6 +359,7 @@
 
 
       <!-- السابق -->
+
       <button
         type="button"
         class="book-btn book-prev"
@@ -344,6 +381,10 @@
 </main>
 
 
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer class="site-footer">
 
@@ -371,12 +412,12 @@
 
 
 <!-- =====================================================
-     PAGE FLIP
+     PAGE FLIP LIBRARY
 ===================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
 
-<script src="assets/app.js?v=flipbook-arabic-rtl6"></script>
+<script src="assets/app.js?v=flipbook-arabic-rtl8"></script>
 
 
 
@@ -430,6 +471,10 @@
       !window.St.PageFlip
     ) {
 
+      console.error(
+        'PageFlip library is not available.'
+      );
+
       return;
 
     }
@@ -437,13 +482,11 @@
 
 
     /* ===================================================
-       مهم جدًا:
+       ترتيب الصفحات
 
-       PageFlip نفسه يعمل بمنطق Left-To-Right.
+       PageFlip يعمل داخليًا Left-To-Right.
 
-       لذلك لكي نحصل على كتاب عربي:
-
-       DOM:
+       لذلك ترتيب DOM يكون:
 
        BACK COVER
        12
@@ -460,25 +503,28 @@
        1
        FRONT COVER
 
-       وعند بدء الكتاب من FRONT COVER:
+       والنتيجة بصريًا:
 
-       FRONT COVER
+       الغلاف
        ↓
        1 | 2
        ↓
        3 | 4
        ↓
-       ...
+       5 | 6
+       ↓
+       7 | 8
+       ↓
+       9 | 10
        ↓
        11 | 12
        ↓
-       BACK COVER
-
-       هذه هي النقطة الأساسية.
+       النهاية
     =================================================== */
 
 
     const internalPages = [
+
       12,
       11,
       10,
@@ -491,20 +537,21 @@
       3,
       2,
       1
+
     ];
 
 
-    /*
-     * الغلاف الخلفي في البداية
-     * ثم الصفحات معكوسة
-     * ثم الغلاف الأمامي في النهاية
-     */
     const pageSpecs = [
+
+      /* الغلاف الخلفي */
 
       {
         type: 'back',
         label: 'النهاية'
       },
+
+
+      /* الصفحات الداخلية */
 
       ...internalPages.map(
         number => ({
@@ -512,6 +559,9 @@
           number
         })
       ),
+
+
+      /* الغلاف الأمامي */
 
       {
         type: 'cover',
@@ -522,9 +572,9 @@
 
 
 
-    /* ===================================================
+    /* =====================================================
        إنشاء الصفحات
-    =================================================== */
+    ===================================================== */
 
     const pages =
       pageSpecs.map(
@@ -567,7 +617,9 @@
              الغلاف الأمامي
           ============================================= */
 
-          if (spec.type === 'cover') {
+          if (
+            spec.type === 'cover'
+          ) {
 
             page.innerHTML = `
 
@@ -619,7 +671,9 @@
              الغلاف الخلفي
           ============================================= */
 
-          else if (spec.type === 'back') {
+          else if (
+            spec.type === 'back'
+          ) {
 
             page.innerHTML = `
 
@@ -663,32 +717,44 @@
 
 
           /* =============================================
-             الصفحات الداخلية
+             الصفحات الداخلية 1 → 12
+
+             كل صفحة لها صورة:
+
+             pamphlet-1.jpg
+             pamphlet-2.jpg
+             ...
+             pamphlet-12.jpg
           ============================================= */
 
           else {
 
-         page.innerHTML = `
+            page.innerHTML = `
 
-  <div class="page-inner page-image-inner">
+              <div class="page-inner page-image-inner">
 
-    <img
-      class="pamphlet-page-image"
+                <img
+                  class="pamphlet-page-image"
 
-      src="assets/img/pamphlet-${spec.number}.jpg"
+                  src="assets/img/pamphlet-${spec.number}.jpg"
 
-      alt="صفحة البامفلت رقم ${toArabicDigits(spec.number)}"
+                  alt="صفحة البامفلت رقم ${toArabicDigits(spec.number)}"
 
-      loading="eager"
+                  loading="eager"
 
-      onerror="console.error('لم يتم العثور على صورة الصفحة ${spec.number}:', this.src);"
-    >
+                  draggable="false"
 
-  </div>
+                  onerror="
+                    console.error(
+                      'لم يتم العثور على صورة الصفحة ${spec.number}:',
+                      this.src
+                    );
+                  "
+                >
 
-`;
+              </div>
 
-            }
+            `;
 
           }
 
@@ -717,19 +783,11 @@
     /* =====================================================
        PageFlip
 
-       مهم:
-       usePortrait = false على الديسكتوب
+       Desktop:
+       صفحتين
 
-       عشان:
-
-       1 | 2
-       3 | 4
-       ...
-
-       تظهر Spread حقيقية.
-
-       أما الغلافين فيظلان Single
-       بسبب showCover: true.
+       Mobile:
+       صفحة واحدة
     ===================================================== */
 
     const pageFlip =
@@ -757,14 +815,20 @@
           maxShadowOpacity: 0.42,
 
 
-          /*
-           * أهم إعداد:
-           *
-           * يجعل أول وآخر غلاف
-           * يظهران منفردين.
-           */
+          /* الغلاف Single */
+
           showCover: true,
 
+
+          /*
+           * مهم للموبايل:
+           *
+           * PageFlip نفسه مسؤول
+           * عن اللمس والسحب.
+           *
+           * لا يوجد Touch Handler
+           * إضافي في الكود.
+           */
 
           mobileScrollSupport: false,
 
@@ -778,15 +842,17 @@
           /*
            * Desktop = Spread
            *
-           * Mobile = Single Page
+           * Mobile = Single
            */
+
           usePortrait: isMobile,
 
 
           /*
-           * الغلاف الأمامي موجود
-           * في آخر عنصر بسبب RTL.
+           * الغلاف الأمامي
+           * هو آخر عنصر
            */
+
           startPage:
             pageSpecs.length - 1
 
@@ -837,7 +903,7 @@
 
 
     /* =====================================================
-       تحديد الصفحة المنطقية
+       الصفحة المنطقية الحالية
     ===================================================== */
 
     function getLogicalCurrentPage() {
@@ -896,9 +962,7 @@
 
 
 
-      /*
-       * الغلاف الأمامي
-       */
+      /* الغلاف */
 
       if (
         logicalPage === 0
@@ -915,9 +979,7 @@
 
 
 
-      /*
-       * الغلاف الخلفي
-       */
+      /* النهاية */
 
       else if (
         logicalPage === 13
@@ -934,9 +996,7 @@
 
 
 
-      /*
-       * الصفحات الداخلية
-       */
+      /* الصفحات الداخلية */
 
       else {
 
@@ -953,22 +1013,13 @@
 
 
 
-      /*
-       * زر التالي
-       *
-       * نحن في ترتيب RTL:
-       *
-       * الغلاف = أعلى index
-       * النهاية = index 0
-       */
+      /* =================================================
+         حالة الأزرار
+      ================================================= */
 
       next.disabled =
         index <= 0;
 
-
-      /*
-       * زر السابق
-       */
 
       prev.disabled =
         index >=
@@ -979,7 +1030,7 @@
 
 
     /* =====================================================
-       Event
+       Flip Event
     ===================================================== */
 
     pageFlip.on(
@@ -1000,17 +1051,18 @@
 
     /* =====================================================
        التالي في الكتاب العربي
-       
-       من:
+
        الغلاف
-       
-       إلى:
+       ↓
        1 | 2
-       
-       ثم:
+       ↓
        3 | 4
-       
+       ↓
        ...
+       ↓
+       11 | 12
+       ↓
+       النهاية
     ===================================================== */
 
     function arabicNext() {
@@ -1019,7 +1071,9 @@
         pageFlip.getCurrentPageIndex();
 
 
-      if (index <= 0) {
+      if (
+        index <= 0
+      ) {
 
         return;
 
@@ -1030,10 +1084,6 @@
         pageFlip.getBoundsRect();
 
 
-      /*
-       * الطرف الأيسر:
-       * تقليب الصفحة التالية
-       */
       controller.flip({
 
         x: 10,
@@ -1086,7 +1136,7 @@
 
 
     /* =====================================================
-       الأزرار
+       أزرار التحكم
     ===================================================== */
 
     next.addEventListener(
@@ -1103,8 +1153,8 @@
 
 
     /* =====================================================
-       الكيبورد
-       
+       Keyboard
+
        ← = التالي
        → = السابق
     ===================================================== */
@@ -1173,168 +1223,20 @@
 
 
     /* =====================================================
-       Swipe للموبايل
-       
-       الشمال → اليمين = التالي
-       اليمين → الشمال = السابق
+       ملاحظة مهمة:
+
+       لا يوجد هنا:
+
+       touchstart
+       touchend
+       touchmove
+
+       لأن PageFlip نفسه يتعامل
+       مع Swipe على الموبايل.
+
+       ده يمنع إن السحبة الواحدة
+       تتنفذ مرتين.
     ===================================================== */
-
-    if (isMobile) {
-
-      let startX = null;
-
-      let startY = null;
-
-      let tracking = false;
-
-
-
-      host.addEventListener(
-
-        'touchstart',
-
-        (event) => {
-
-          if (
-            !event.touches ||
-            !event.touches[0]
-          ) {
-
-            return;
-
-          }
-
-
-          startX =
-            event.touches[0].clientX;
-
-
-          startY =
-            event.touches[0].clientY;
-
-
-          tracking = true;
-
-        },
-
-        {
-          passive: true
-        }
-
-      );
-
-
-
-      host.addEventListener(
-
-        'touchend',
-
-        (event) => {
-
-          if (
-            !tracking ||
-            startX === null ||
-            !event.changedTouches ||
-            !event.changedTouches[0]
-          ) {
-
-            return;
-
-          }
-
-
-          const endX =
-            event.changedTouches[0].clientX;
-
-
-          const endY =
-            event.changedTouches[0].clientY;
-
-
-          const dx =
-            endX - startX;
-
-
-          const dy =
-            endY - startY;
-
-
-          startX = null;
-
-          startY = null;
-
-          tracking = false;
-
-
-
-          /*
-           * ضغطة على الغلاف
-           */
-
-          if (
-            Math.abs(dx) < 18 &&
-            Math.abs(dy) < 18
-          ) {
-
-            if (
-              pageFlip.getCurrentPageIndex() ===
-              pages.length - 1
-            ) {
-
-              arabicNext();
-
-            }
-
-            return;
-
-          }
-
-
-
-          /*
-           * تجاهل الحركة الرأسية
-           */
-
-          if (
-            Math.abs(dx) < 40 ||
-            Math.abs(dx) <
-            Math.abs(dy)
-          ) {
-
-            return;
-
-          }
-
-
-
-          /*
-           * عربي:
-           *
-           * الشمال → اليمين
-           * = التالي
-           */
-
-          if (dx > 0) {
-
-            arabicNext();
-
-          }
-
-          else {
-
-            arabicPrev();
-
-          }
-
-        },
-
-        {
-          passive: true
-        }
-
-      );
-
-    }
 
 
 
@@ -1376,6 +1278,10 @@
 
 
 
+<!-- =====================================================
+     SITE SCRIPTS
+===================================================== -->
+
 <script>
 
   markActiveNav();
@@ -1388,4 +1294,3 @@
 </body>
 
 </html>
-```
