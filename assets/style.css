@@ -1529,6 +1529,16 @@ img { max-width: 100%; height: auto; display: block; }
     min-height: 430px;
   }
 
+  /* على الموبايل: سهم الصفحة التالية يكون على اليسار،
+     لأن فتح الكتاب العربي يبدأ من الجهة اليسرى. */
+  .book-controls {
+    direction: ltr;
+  }
+
+  .book-next { order: 1; }
+  .page-counter { order: 2; }
+  .book-prev { order: 3; }
+
   .cover-open {
     margin-top: 26px;
     font-size: .78rem;
