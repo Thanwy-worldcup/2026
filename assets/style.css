@@ -1178,7 +1178,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* ============================================================
-   البامفلت — Flipbook حقيقي / 10 صفحات
+   البامفلت — Flipbook حقيقي / الصفحات المصورة
    مضاف للصفحة الحالية فقط، ولا يغيّر تصميم باقي الموقع.
    ============================================================ */
 .pamphlet-book-page {
@@ -1543,4 +1543,21 @@ img { max-width: 100%; height: auto; display: block; }
     margin-top: 26px;
     font-size: .78rem;
   }
+}
+
+
+/* ---------- صور صفحات البامفلت ---------- */
+.page-image-inner {
+  padding: 0 !important;
+  overflow: hidden;
+  background: #fff;
+}
+
+.pamphlet-page-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
 }
