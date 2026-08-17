@@ -1,26 +1,52 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>البامفلت</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=flipbook3">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>البامفلت</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;700&family=Cairo:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="assets/style.css?v=flipbook5">
 </head>
+
 <body>
 
 <header class="site-header">
   <div class="container">
+
     <div class="brand">
       <img src="assets/img/logo.jpg" alt="لوجو المؤتمر">
+
       <div>
         <span class="brand-name">مؤتمر شباب ثانوي</span>
-        <div class="brand-sub">كنيسة البابا اثناسيوس الرسولي - بقليوب المحطة</div>
+
+        <div class="brand-sub">
+          كنيسة البابا اثناسيوس الرسولي - بقليوب المحطة
+        </div>
       </div>
     </div>
-    <button class="nav-toggle" onclick="toggleNav()" aria-label="فتح القائمة" aria-expanded="false">☰</button>
-    <nav class="main-nav" id="mainNav" onclick="if(event.target===this) toggleNav()">
+
+    <button
+      class="nav-toggle"
+      onclick="toggleNav()"
+      aria-label="فتح القائمة"
+      aria-expanded="false"
+    >
+      ☰
+    </button>
+
+    <nav
+      class="main-nav"
+      id="mainNav"
+      onclick="if(event.target===this) toggleNav()"
+    >
       <a href="index.html">الرئيسية</a>
       <a href="teams.html">المنتخبات</a>
       <a href="pamphlet.html">البامفلت</a>
@@ -28,265 +54,1035 @@
       <a href="rules.html">اللوائح</a>
       <a href="gallery.html">معرض الصور</a>
     </nav>
+
   </div>
 </header>
 
+
 <main class="pamphlet-book-page">
-  <section class="flipbook-stage" aria-label="بامفلت المؤتمر">
+
+  <section
+    class="flipbook-stage"
+    aria-label="بامفلت المؤتمر"
+  >
+
     <div class="book-shell">
-      <div id="flipbook" class="flipbook"></div>
+
+      <div
+        id="flipbook"
+        class="flipbook"
+      ></div>
+
     </div>
 
-    <div class="book-controls" aria-label="أدوات تقليب الصفحات">
-      <button type="button" class="book-btn book-next" id="nextPage" aria-label="الصفحة التالية">‹</button>
-      <div class="page-counter"><span id="pageCurrent">١</span><span class="counter-sep">/</span><span class="page-total">١١</span></div>
-      <button type="button" class="book-btn book-prev" id="prevPage" aria-label="الصفحة السابقة">›</button>
+
+    <div
+      class="book-controls"
+      aria-label="أدوات تقليب الصفحات"
+    >
+
+      <button
+        type="button"
+        class="book-btn book-next"
+        id="nextPage"
+        aria-label="الصفحة التالية"
+      >
+        ‹
+      </button>
+
+      <div class="page-counter">
+
+        <span id="pageCurrent">الغلاف</span>
+
+        <span class="counter-sep">/</span>
+
+        <span class="page-total">١١</span>
+
+      </div>
+
+      <button
+        type="button"
+        class="book-btn book-prev"
+        id="prevPage"
+        aria-label="الصفحة السابقة"
+      >
+        ›
+      </button>
+
     </div>
 
-    <p class="book-hint">اسحب الصفحة لتقليب الكتاب أو استخدم الأسهم</p>
+
+    <p class="book-hint">
+      اضغط على الغلاف لفتح الكتاب أو اسحب الصفحة لتقليب الكتاب
+    </p>
+
   </section>
+
 </main>
 
+
 <footer class="site-footer">
+
   <div class="container footer-flex">
-    <div class="footer-verse" data-footer-verse></div>
+
+    <div
+      class="footer-verse"
+      data-footer-verse
+    ></div>
+
     <div class="footer-qr-badge">
-      <img src="assets/img/qr-code.png" alt="امسح لفتح الموقع">
+
+      <img
+        src="assets/img/qr-code.png"
+        alt="امسح لفتح الموقع"
+      >
+
     </div>
+
   </div>
+
 </footer>
 
-<!-- محرك تقليب الصفحات -->
+
+<!-- =========================================================
+     PAGE FLIP
+========================================================= -->
+
 <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
-<script src="assets/app.js?v=flipbook-arabic-rtl4"></script>
+
+<script src="assets/app.js?v=flipbook-arabic-rtl5"></script>
+
+
 <script>
+
 (() => {
-  const ARABIC_DIGITS = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+
+  /* =========================================================
+     أرقام عربية
+  ========================================================= */
+
+  const ARABIC_DIGITS = [
+    '٠','١','٢','٣','٤','٥','٦','٧','٨','٩'
+  ];
+
   function toArabicDigits(value) {
-    return String(value).replace(/\d/g, d => ARABIC_DIGITS[d]);
+
+    return String(value).replace(
+      /\d/g,
+      digit => ARABIC_DIGITS[digit]
+    );
+
   }
+
+
+  /* =========================================================
+     تشغيل الكتاب
+  ========================================================= */
 
   function initPamphletBook() {
+
     const host = document.getElementById('flipbook');
-    if (!host || !window.St || !window.St.PageFlip) return;
 
-    const isMobile = window.matchMedia('(max-width: 700px)').matches;
+    if (
+      !host ||
+      !window.St ||
+      !window.St.PageFlip
+    ) {
+      return;
+    }
 
-    // كتاب عربي حقيقي: الغلاف الأمامي في أقصى اليمين، والفتح يكون
-    // بعكس اتجاه الكتاب الغربي. ترتيب المحرك معكوس عمدًا، ونبدأ من الغلاف
-    // الموجود في آخر عنصر ثم نتقدم باستخدام اتجاه BACK داخل StPageFlip.
-    // Desktop: بعد فتح الغلاف يظهر ١ على اليمين و٢ على اليسار.
-    // Mobile: الغلاف ← الصفحات المرقمة بالترتيب ← الغلاف الخلفي.
-    const internalPages = [11,10,9,8,7,6,5,4,3,2,1];
+
+    /* =======================================================
+       منع تشغيل الكود أكثر من مرة
+    ======================================================= */
+
+    if (host.dataset.initialized === 'true') {
+      return;
+    }
+
+    host.dataset.initialized = 'true';
+
+
+    /* =======================================================
+       تحديد الموبايل
+    ======================================================= */
+
+    const isMobile =
+      window.matchMedia('(max-width: 700px)').matches;
+
+
+    /* =======================================================
+       ترتيب الصفحات الحقيقي
+       
+       مهم جدًا:
+       
+       الغلاف
+       1
+       2
+       3
+       4
+       ...
+       11
+       الغلاف الخلفي
+       
+       لا نعكس الترتيب هنا.
+       
+       PageFlip هو المسؤول عن عملية التقليب.
+    ======================================================= */
 
     const pageSpecs = [
-      { type: 'back', label: 'النهاية' },
-      ...internalPages.map(number => ({ type: 'page', number })),
-      { type: 'cover', label: 'غلاف' }
+
+      /* الغلاف الأمامي */
+      {
+        type: 'cover',
+        label: 'الغلاف'
+      },
+
+      /* الصفحات الداخلية */
+      {
+        type: 'page',
+        number: 1
+      },
+
+      {
+        type: 'page',
+        number: 2
+      },
+
+      {
+        type: 'page',
+        number: 3
+      },
+
+      {
+        type: 'page',
+        number: 4
+      },
+
+      {
+        type: 'page',
+        number: 5
+      },
+
+      {
+        type: 'page',
+        number: 6
+      },
+
+      {
+        type: 'page',
+        number: 7
+      },
+
+      {
+        type: 'page',
+        number: 8
+      },
+
+      {
+        type: 'page',
+        number: 9
+      },
+
+      {
+        type: 'page',
+        number: 10
+      },
+
+      {
+        type: 'page',
+        number: 11
+      },
+
+      /* الغلاف الخلفي */
+      {
+        type: 'back',
+        label: 'النهاية'
+      }
+
     ];
 
+
+    /* =======================================================
+       إنشاء صفحات الكتاب
+    ======================================================= */
+
     const pages = pageSpecs.map((spec) => {
+
       const page = document.createElement('div');
-      page.className = `book-page ${spec.type === 'cover' ? 'book-cover' : ''} ${spec.type === 'back' ? 'book-back-cover' : ''}`;
+
+
+      page.className =
+        'book-page' +
+
+        (
+          spec.type === 'cover'
+            ? ' book-cover'
+            : ''
+        ) +
+
+        (
+          spec.type === 'back'
+            ? ' book-back-cover'
+            : ''
+        );
+
+
       page.dataset.pageType = spec.type;
-      if (spec.number) page.dataset.pageNumber = String(spec.number);
+
+
+      if (spec.number) {
+
+        page.dataset.pageNumber =
+          String(spec.number);
+
+      }
+
+
+      /* =====================================================
+         الغلاف الأمامي
+      ===================================================== */
 
       if (spec.type === 'cover') {
-        // ضع صورة الغلاف هنا لاحقًا: assets/img/pamphlet-cover.jpg
+
         page.innerHTML = `
+
           <div class="cover-inner">
+
             <div class="cover-image">
-              <img src="assets/img/pamphlet-cover.jpg" alt="غلاف البامفلت"
-                   onerror="this.style.display='none'; this.parentElement.classList.add('cover-placeholder');">
+
+              <img
+                src="assets/img/pamphlet-cover.jpg"
+                alt="غلاف البامفلت"
+
+                onerror="
+                  this.style.display='none';
+                  this.parentElement.classList.add('cover-placeholder');
+                "
+              >
+
               <div class="cover-placeholder-content">
-                <div class="cover-trophy">🏆</div>
-                <div class="cover-title">كأس العالم</div>
-                <div class="cover-year">2026</div>
-                <div class="cover-open">اضغط لفتح الكتيب</div>
+
+                <div class="cover-trophy">
+                  🏆
+                </div>
+
+                <div class="cover-title">
+                  كأس العالم
+                </div>
+
+                <div class="cover-year">
+                  2026
+                </div>
+
+                <div class="cover-open">
+                  اضغط لفتح الكتيب
+                </div>
+
               </div>
+
             </div>
-          </div>`;
-      } else if (spec.type === 'back') {
-        page.innerHTML = `
-          <div class="cover-inner">
-            <div class="back-cover-inner">
-              <div class="cover-trophy">🏆</div>
-              <div class="cover-title">النهاية</div>
-            </div>
-          </div>`;
-      } else {
-        page.innerHTML = `
-          <div class="page-inner page-image-inner">
-            <img class="pamphlet-page-image" src="assets/img/pamphlet-${spec.number}.jpg" alt="صفحة البامفلت رقم ${toArabicDigits(spec.number)}">
-          </div>`;
+
+          </div>
+
+        `;
+
       }
+
+
+      /* =====================================================
+         الغلاف الخلفي
+         
+         هنا التعديل المهم:
+         
+         نستخدم الصورة الحقيقية:
+         assets/img/back-cover.jpg
+      ===================================================== */
+
+      else if (spec.type === 'back') {
+
+        page.innerHTML = `
+
+          <div class="cover-inner">
+
+            <div class="back-cover-inner">
+
+              <img
+                class="pamphlet-back-cover-image"
+                src="assets/img/back-cover.jpg"
+                alt="الغلاف الخلفي للبامفلت"
+
+                onerror="
+                  this.style.display='none';
+                  this.parentElement.classList.add('back-cover-placeholder');
+                "
+              >
+
+              <div class="back-cover-fallback">
+
+                <div class="cover-trophy">
+                  🏆
+                </div>
+
+                <div class="cover-title">
+                  النهاية
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }
+
+
+      /* =====================================================
+         الصفحات الداخلية
+      ===================================================== */
+
+      else {
+
+        page.innerHTML = `
+
+          <div class="page-inner page-image-inner">
+
+            <img
+              class="pamphlet-page-image"
+
+              src="assets/img/pamphlet-${spec.number}.jpg"
+
+              alt="صفحة البامفلت رقم ${toArabicDigits(spec.number)}"
+
+              loading="eager"
+            >
+
+          </div>
+
+        `;
+
+      }
+
 
       host.appendChild(page);
+
       return page;
+
     });
 
-    const pageFlip = new St.PageFlip(host, {
-      width: 620,
-      height: 860,
-      size: 'stretch',
-      minWidth: 280,
-      maxWidth: 900,
-      minHeight: 390,
-      maxHeight: 980,
-      drawShadow: true,
-      maxShadowOpacity: 0.42,
-      showCover: true,
-      mobileScrollSupport: false,
-      useMouseEvents: true,
-      swipeDistance: 28,
-      flippingTime: 900,
-      usePortrait: true,
-      startPage: pageSpecs.length - 1
-    });
 
-    pageFlip.loadFromHTML(host.querySelectorAll('.book-page'));
+    /* =======================================================
+       إعداد PageFlip
+    ======================================================= */
 
-    const current = document.getElementById('pageCurrent');
-    const prev = document.getElementById('prevPage');
-    const next = document.getElementById('nextPage');
-    const controls = document.querySelector('.book-controls');
+    const pageFlip = new St.PageFlip(
+      host,
+      {
 
-    function getLogicalCurrentPage() {
-      const index = pageFlip.getCurrentPageIndex();
-      const spec = pageSpecs[index];
-      if (!spec) return 0;
-      if (spec.type === 'cover') return 0;
-      if (spec.type === 'back') return 12;
-      return spec.number;
+        width: 620,
+
+        height: 860,
+
+        size: 'stretch',
+
+        minWidth: 280,
+
+        maxWidth: 900,
+
+        minHeight: 390,
+
+        maxHeight: 980,
+
+
+        drawShadow: true,
+
+        maxShadowOpacity: 0.42,
+
+
+        /*
+         * مهم جدًا:
+         *
+         * الغلاف يظهر لوحده.
+         *
+         * وبعد فتحه يظهر Spread:
+         *
+         * 1 | 2
+         *
+         * ثم:
+         *
+         * 3 | 4
+         *
+         * وهكذا.
+         */
+
+        showCover: true,
+
+
+        mobileScrollSupport: false,
+
+        useMouseEvents: true,
+
+        swipeDistance: 28,
+
+        flippingTime: 900,
+
+
+        /*
+         * على الموبايل صفحة واحدة.
+         * على الكمبيوتر صفحتان بعد الغلاف.
+         */
+
+        usePortrait: isMobile,
+
+
+        /*
+         * يبدأ من الغلاف الأمامي.
+         */
+
+        startPage: 0
+
+      }
+    );
+
+
+    /* =======================================================
+       تحميل الصفحات
+    ======================================================= */
+
+    pageFlip.loadFromHTML(
+      host.querySelectorAll('.book-page')
+    );
+
+
+    /* =======================================================
+       عناصر التحكم
+    ======================================================= */
+
+    const current =
+      document.getElementById('pageCurrent');
+
+    const prev =
+      document.getElementById('prevPage');
+
+    const next =
+      document.getElementById('nextPage');
+
+    const controls =
+      document.querySelector('.book-controls');
+
+
+    /* =======================================================
+       معرفة الصفحة الحالية
+    ======================================================= */
+
+    function getCurrentIndex() {
+
+      return pageFlip.getCurrentPageIndex();
+
     }
+
+
+    /* =======================================================
+       تحديث عداد الصفحات والأزرار
+    ======================================================= */
 
     function update() {
-      const index = pageFlip.getCurrentPageIndex();
-      const currentPage = getLogicalCurrentPage();
 
-      // لا نعرض رقمًا على الغلافين المغلقين.
-      if (currentPage === 0 || currentPage === 12) {
-        current.textContent = '١';
-        if (controls) controls.classList.add('on-cover');
-      } else {
-        current.textContent = toArabicDigits(currentPage);
-        if (controls) controls.classList.remove('on-cover');
+      const index =
+        getCurrentIndex();
+
+
+      const spec =
+        pageSpecs[index];
+
+
+      if (!spec) {
+        return;
       }
 
-      // في الكتاب العربي: next يتقدم باتجاه اليمين، وprev يرجع باتجاه اليسار.
-      if (isMobile) {
-        next.disabled = index <= 0;
-        prev.disabled = index >= pages.length - 1;
-      } else {
-        next.disabled = index <= 1;
-        prev.disabled = index >= pages.length - 1;
+
+      /* =====================================================
+         الغلاف الأمامي
+      ===================================================== */
+
+      if (spec.type === 'cover') {
+
+        current.textContent =
+          'الغلاف';
+
+        if (controls) {
+
+          controls.classList.add(
+            'on-cover'
+          );
+
+        }
+
       }
-    }
 
-    pageFlip.on('flip', update);
 
-    // عكس حركة الـFlip نفسها: نستخدم FlipController ونبدأ من الحافة اليسرى
-    // للتقدم (BACK) ومن الحافة اليمنى للرجوع، بدل مجرد عكس الأرقام.
-    const controller = pageFlip.getFlipController();
+      /* =====================================================
+         الغلاف الخلفي
+      ===================================================== */
 
-    function arabicNext() {
-      if (pageFlip.getCurrentPageIndex() <= 0) return;
-      const rect = pageFlip.getBoundsRect();
-      controller.flip({ x: 10, y: rect.height / 2 });
-    }
+      else if (spec.type === 'back') {
 
-    function arabicPrev() {
-      if (pageFlip.getCurrentPageIndex() >= pages.length - 1) return;
-      const rect = pageFlip.getBoundsRect();
-      controller.flip({ x: rect.width - 10, y: rect.height / 2 });
-    }
+        current.textContent =
+          'النهاية';
 
-    // الأسهم: التالي يسار، السابق يمين.
-    next.addEventListener('click', arabicNext);
-    prev.addEventListener('click', arabicPrev);
+        if (controls) {
 
-    // كيبورد عربي: ← التالي، → السابق.
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        arabicNext();
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        arabicPrev();
+          controls.classList.add(
+            'on-cover'
+          );
+
+        }
+
       }
-    });
 
-    // الموبايل: نريد الشمال → اليمين = التالي.
-    // نستخدم startUserTouch/userMove/userStop من StPageFlip حتى يظل التقليب
-    // نفسه هو تقليب المكتبة وليس تغيير رقم الصفحة فقط.
+
+      /* =====================================================
+         الصفحات الداخلية
+      ===================================================== */
+
+      else {
+
+        current.textContent =
+          toArabicDigits(
+            spec.number
+          );
+
+        if (controls) {
+
+          controls.classList.remove(
+            'on-cover'
+          );
+
+        }
+
+      }
+
+
+      /* =====================================================
+         حالة زر التالي
+      ===================================================== */
+
+      /*
+       * عند الغلاف:
+       * مسموح الفتح.
+       *
+       * عند الغلاف الخلفي:
+       * لا يوجد التالي.
+       */
+
+      next.disabled =
+        index >= pageSpecs.length - 1;
+
+
+      /* =====================================================
+         حالة زر السابق
+      ===================================================== */
+
+      prev.disabled =
+        index <= 0;
+
+    }
+
+
+    /* =======================================================
+       Flip Event
+    ======================================================= */
+
+    pageFlip.on(
+      'flip',
+      update
+    );
+
+
+    /* =======================================================
+       Controller
+    ======================================================= */
+
+    const controller =
+      pageFlip.getFlipController();
+
+
+    /* =======================================================
+       التالي
+       
+       عربي:
+       من اليمين إلى اليسار داخل منطق الكتاب.
+    ======================================================= */
+
+    function goNext() {
+
+      const index =
+        getCurrentIndex();
+
+
+      if (
+        index >=
+        pageSpecs.length - 1
+      ) {
+
+        return;
+
+      }
+
+
+      const rect =
+        pageFlip.getBoundsRect();
+
+
+      /*
+       * نقلب من الحافة المناسبة
+       * حتى يظل شكل التقليب طبيعي.
+       */
+
+      controller.flip({
+
+        x: 10,
+
+        y:
+          rect.height / 2
+
+      });
+
+    }
+
+
+    /* =======================================================
+       السابق
+    ======================================================= */
+
+    function goPrev() {
+
+      const index =
+        getCurrentIndex();
+
+
+      if (index <= 0) {
+
+        return;
+
+      }
+
+
+      const rect =
+        pageFlip.getBoundsRect();
+
+
+      controller.flip({
+
+        x:
+          rect.width - 10,
+
+        y:
+          rect.height / 2
+
+      });
+
+    }
+
+
+    /* =======================================================
+       أزرار التحكم
+    ======================================================= */
+
+    next.addEventListener(
+      'click',
+      goNext
+    );
+
+
+    prev.addEventListener(
+      'click',
+      goPrev
+    );
+
+
+    /* =======================================================
+       الكيبورد
+       
+       ← التالي
+       → السابق
+    ======================================================= */
+
+    document.addEventListener(
+      'keydown',
+      (event) => {
+
+        if (
+          event.key === 'ArrowLeft'
+        ) {
+
+          event.preventDefault();
+
+          goNext();
+
+        }
+
+        else if (
+          event.key === 'ArrowRight'
+        ) {
+
+          event.preventDefault();
+
+          goPrev();
+
+        }
+
+      }
+    );
+
+
+    /* =======================================================
+       الضغط على الغلاف
+       
+       الغلاف يفتح مباشرة عند الضغط عليه.
+    ======================================================= */
+
+    const cover =
+      pages[0];
+
+
+    if (cover) {
+
+      cover.addEventListener(
+        'click',
+        () => {
+
+          if (
+            getCurrentIndex() === 0
+          ) {
+
+            goNext();
+
+          }
+
+        }
+      );
+
+    }
+
+
+    /* =======================================================
+       Touch / Swipe للموبايل
+       
+       عربي:
+       
+       سحب من الشمال إلى اليمين
+       = التالي
+       
+       سحب من اليمين إلى الشمال
+       = السابق
+    ======================================================= */
+
     if (isMobile) {
+
       let startX = null;
+
       let startY = null;
+
       let tracking = false;
 
-      host.addEventListener('touchstart', (e) => {
-        if (!e.touches?.[0]) return;
-        // امنع مستشعر اللمس الافتراضي للمكتبة من تنفيذ اتجاهه الغربي.
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        tracking = true;
-      }, { passive: false, capture: true });
 
-      host.addEventListener('touchmove', (e) => {
-        if (tracking) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
+      host.addEventListener(
+
+        'touchstart',
+
+        (event) => {
+
+          if (
+            !event.touches ||
+            !event.touches[0]
+          ) {
+
+            return;
+
+          }
+
+
+          startX =
+            event.touches[0].clientX;
+
+
+          startY =
+            event.touches[0].clientY;
+
+
+          tracking = true;
+
+        },
+
+        {
+          passive: true
         }
-      }, { passive: false, capture: true });
 
-      host.addEventListener('touchend', (e) => {
-        if (!tracking || startX === null || !e.changedTouches?.[0]) return;
+      );
 
-        e.preventDefault();
-        e.stopImmediatePropagation();
 
-        const dx = e.changedTouches[0].clientX - startX;
-        const dy = e.changedTouches[0].clientY - startY;
-        startX = startY = null;
-        tracking = false;
+      host.addEventListener(
 
-        // ضغطة مباشرة على الغلاف تفتحه أيضًا.
-        if (Math.abs(dx) < 18 && Math.abs(dy) < 18 && pageFlip.getCurrentPageIndex() === pages.length - 1) {
-          arabicNext();
-          return;
+        'touchend',
+
+        (event) => {
+
+          if (
+            !tracking ||
+            startX === null ||
+            !event.changedTouches ||
+            !event.changedTouches[0]
+          ) {
+
+            return;
+
+          }
+
+
+          const endX =
+            event.changedTouches[0].clientX;
+
+
+          const endY =
+            event.changedTouches[0].clientY;
+
+
+          const dx =
+            endX - startX;
+
+
+          const dy =
+            endY - startY;
+
+
+          startX = null;
+
+          startY = null;
+
+          tracking = false;
+
+
+          /* تجاهل السحب الرأسي */
+
+          if (
+            Math.abs(dx) < 40 ||
+            Math.abs(dx) <
+            Math.abs(dy)
+          ) {
+
+            return;
+
+          }
+
+
+          /*
+           * عربي:
+           *
+           * الشمال → اليمين = التالي
+           */
+
+          if (dx > 0) {
+
+            goNext();
+
+          }
+
+
+          /*
+           * اليمين → الشمال = السابق
+           */
+
+          else {
+
+            goPrev();
+
+          }
+
+        },
+
+        {
+          passive: true
         }
 
-        if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+      );
 
-        // عربي: الشمال → اليمين = التالي، واليمين → الشمال = السابق.
-        if (dx > 0) {
-          arabicNext();
-        } else {
-          arabicPrev();
-        }
-      }, { passive: false, capture: true });
     }
 
-    // الغلاف نفسه قابل للضغط لفتحه.
-    const cover = pages[pages.length - 1];
-    if (cover) {
-      cover.addEventListener('click', () => {
-        if (pageFlip.getCurrentPageIndex() === pages.length - 1) arabicNext();
-      });
-    }
+
+    /* =======================================================
+       حماية صور الصفحات
+       
+       لو صورة لم تحمل لا تكسر الكتاب كله.
+    ======================================================= */
+
+    host
+      .querySelectorAll(
+        '.pamphlet-page-image'
+      )
+      .forEach(
+        (img) => {
+
+          img.addEventListener(
+            'error',
+            () => {
+
+              img.style.display =
+                'none';
+
+            }
+          );
+
+        }
+      );
+
+
+    /* =======================================================
+       أول تحديث
+    ======================================================= */
 
     update();
+
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initPamphletBook);
-  } else {
-    initPamphletBook();
+
+  /* =========================================================
+     بدء التشغيل
+  ========================================================= */
+
+  if (
+    document.readyState === 'loading'
+  ) {
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      initPamphletBook
+    );
+
   }
+
+  else {
+
+    initPamphletBook();
+
+  }
+
 })();
+
 </script>
-<script>markActiveNav(); renderFooterVerse(5);</script>
+
+
+<script>
+
+  markActiveNav();
+
+  renderFooterVerse(5);
+
+</script>
+
+
 </body>
+
 </html>
