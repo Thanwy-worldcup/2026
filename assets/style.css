@@ -823,6 +823,198 @@ nav.main-nav a.active {
 
 .timeline-notes { font-size: 0.78rem; color: var(--steel); margin-top: 2px; }
 
+/* ---------- البامفلت: مینی نافيجيشن + أقسام ---------- */
+
+.mini-nav {
+  position: sticky;
+  top: 74px;
+  z-index: 40;
+  background: var(--white);
+  box-shadow: 0 4px 12px rgba(20,51,94,0.08);
+}
+
+.mini-nav-list {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 10px 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mini-nav-list a {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  color: var(--steel);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+
+.mini-nav-list a .mini-nav-icon { font-size: 1.2rem; }
+
+.mini-nav-list a.active,
+.mini-nav-list a:hover {
+  background: var(--sky);
+  color: var(--navy);
+}
+
+.pamphlet-section { scroll-margin-top: 150px; padding: 30px 0; }
+
+.pamphlet-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 6px 22px;
+  box-shadow: 0 8px 30px rgba(20,51,94,0.08);
+}
+
+.pamphlet-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.pamphlet-line:last-child { border-bottom: none; }
+
+.pamphlet-bullet { font-size: 1.3rem; flex: 0 0 auto; margin-top: 2px; }
+
+.pamphlet-line p { margin: 0; line-height: 1.9; color: var(--ink); }
+
+@media (max-width: 860px) {
+  .mini-nav { top: 70px; }
+}
+
+@media (max-width: 480px) {
+  .mini-nav-list { gap: 0; padding: 6px 4px; }
+  .mini-nav-list a { padding: 4px 3px; font-size: 0.6rem; gap: 0; }
+  .mini-nav-list a .mini-nav-icon { font-size: 0.95rem; }
+}
+
+/* ---------- كتاب البامفلت الحقيقي (StPageFlip) ---------- */
+
+.book-wrap {
+  position: relative;
+  max-width: 1000px;
+  margin: 24px auto 10px;
+}
+
+/* الحيلة اللي بتخلي القلب يتحرك من الشمال لليمين زي كتب العربي:
+   بنعكس الصندوق كله أفقيًا، وبعدين بنعكس محتوى كل صفحة تاني عشان
+   يرجع يتقرا صح — النتيجة: حركة القلب بصريًا بتبقى بالاتجاه العربي
+   بينما الكلام جوه الصفحة نفسه سليم 100% ومقلوبش. */
+.book-rtl-flip {
+  transform: scaleX(-1);
+}
+
+.book-rtl-flip .page-content {
+  transform: scaleX(-1);
+}
+
+.stpageflip-book {
+  width: 100%;
+  height: 70vh;
+  min-height: 420px;
+  max-height: 780px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.stpageflip-book .page {
+  background: var(--white);
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.06);
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.page-num {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--steel);
+  opacity: 0.45;
+}
+
+.stpageflip-book .page[data-density="hard"] {
+  background: var(--navy);
+}
+
+.stpageflip-book .page[data-density="hard"] .page-num { color: rgba(255,255,255,0.55); }
+
+.flip-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: var(--white);
+  color: var(--navy);
+  font-size: 1.3rem;
+  box-shadow: 0 4px 14px rgba(20,51,94,0.2);
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.85;
+}
+
+.flip-arrow:hover { opacity: 1; }
+.flip-arrow-prev { right: -18px; }
+.flip-arrow-next { left: -18px; }
+
+.flip-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin: 18px auto 30px;
+  font-family: var(--font-display);
+  color: var(--navy);
+}
+
+.flip-ctrl-btn {
+  background: var(--white);
+  border: 1px solid var(--line);
+  color: var(--navy);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(20,51,94,0.08);
+}
+
+.flip-counter { font-size: 0.85rem; color: var(--steel); }
+
+@media (max-width: 640px) {
+  .stpageflip-book { height: 62vh; min-height: 380px; }
+  .book-wrap { margin: 14px auto 6px; }
+  .flip-arrow { width: 36px; height: 36px; font-size: 1.1rem; }
+  .flip-arrow-prev { right: -8px; }
+  .flip-arrow-next { left: -8px; }
+}
+
 /* ---------- اللوائح ---------- */
 
 .rules-icon-grid {
@@ -1175,389 +1367,4 @@ img { max-width: 100%; height: auto; display: block; }
 
 @media (max-width: 640px) {
   .ticker-label { display: none; }
-}
-
-/* ============================================================
-   البامفلت — Flipbook حقيقي / الصفحات المصورة
-   مضاف للصفحة الحالية فقط، ولا يغيّر تصميم باقي الموقع.
-   ============================================================ */
-.pamphlet-book-page {
-  min-height: calc(100vh - 78px);
-  background:
-    radial-gradient(circle at 50% 8%, rgba(255,255,255,.98), rgba(234,242,252,.96) 48%, rgba(220,235,251,.98) 100%);
-}
-
-.flipbook-stage {
-  min-height: calc(100vh - 78px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 18px 16px 14px;
-  overflow: hidden;
-}
-
-.book-shell {
-  position: relative;
-  width: min(96vw, 1440px);
-  height: min(82vh, 900px);
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  filter: drop-shadow(0 24px 30px rgba(20,51,94,.18));
-}
-
-.flipbook {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-}
-
-
-
-.book-page {
-  background: #fffdf8;
-  overflow: hidden;
-}
-
-.page-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  background:
-    linear-gradient(90deg, rgba(24,53,91,.05), transparent 10%, transparent 90%, rgba(24,53,91,.035)),
-    radial-gradient(circle at 50% 48%, rgba(255,255,255,.99), rgba(250,248,241,.99));
-  border: 1px solid rgba(180,145,62,.24);
-}
-
-.page-inner::before {
-  content: '';
-  position: absolute;
-  inset: 16px;
-  border: 1px solid rgba(176,128,25,.18);
-  border-radius: 8px;
-  pointer-events: none;
-}
-
-.page-inner::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 34px;
-  opacity: .30;
-  pointer-events: none;
-  background: linear-gradient(90deg, rgba(20,51,94,.11), transparent);
-}
-
-.book-page:nth-child(odd) .page-inner::after { left: 0; }
-.book-page:nth-child(even) .page-inner::after {
-  right: 0;
-  transform: scaleX(-1);
-}
-
-.page-corner {
-  position: absolute;
-  width: 26px;
-  height: 26px;
-  border-color: rgba(176,128,25,.34);
-  z-index: 2;
-}
-.page-corner-tl { top: 27px; left: 27px; border-top: 1px solid; border-left: 1px solid; }
-.page-corner-tr { top: 27px; right: 27px; border-top: 1px solid; border-right: 1px solid; }
-.page-corner-bl { bottom: 27px; left: 27px; border-bottom: 1px solid; border-left: 1px solid; }
-.page-corner-br { bottom: 27px; right: 27px; border-bottom: 1px solid; border-right: 1px solid; }
-
-.page-number {
-  width: 78px;
-  height: 78px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(176,128,25,.25);
-  background: rgba(235,242,251,.5);
-  box-shadow: inset 0 0 0 7px rgba(255,255,255,.55);
-  color: #14335e;
-  font-family: var(--font-display, 'El Messiri', sans-serif);
-  font-size: 1rem;
-  opacity: .42;
-}
-
-.book-controls {
-  margin-top: 8px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  direction: ltr;
-}
-
-.book-btn {
-  width: 40px;
-  height: 40px;
-  border: 1px solid rgba(20,51,94,.12);
-  border-radius: 50%;
-  background: #fff;
-  color: var(--navy, #14335e);
-  font-size: 1.8rem;
-  line-height: 1;
-  cursor: pointer;
-  box-shadow: 0 5px 14px rgba(20,51,94,.10);
-  transition: transform .18s ease, background .18s ease, opacity .18s ease;
-}
-
-.book-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  background: var(--sky, #eaf2fc);
-}
-
-.book-btn:disabled { opacity: .30; cursor: default; }
-
-.page-counter {
-  direction: ltr;
-  min-width: 62px;
-  text-align: center;
-  color: var(--navy, #14335e);
-  font-family: var(--font-display, 'El Messiri', sans-serif);
-  font-weight: 700;
-}
-
-.counter-sep { margin: 0 5px; opacity: .45; }
-
-.book-hint {
-  margin: 6px 0 0;
-  color: var(--steel, #64748b);
-  font-size: .76rem;
-  opacity: .78;
-}
-
-@media (max-width: 860px) {
-  .pamphlet-book-page,
-  .flipbook-stage { min-height: calc(100vh - 74px); }
-  .flipbook-stage { padding: 8px 7px 10px; }
-  .book-shell { width: 96vw; height: min(79vh, 760px); }
-}
-
-@media (max-width: 600px) {
-  .flipbook-stage { padding: 5px 4px 8px; }
-  .book-shell {
-    width: 96vw;
-    height: calc(100vh - 150px);
-    max-height: 760px;
-    min-height: 450px;
-  }
-  .page-inner::before { inset: 10px; }
-  .page-corner { width: 17px; height: 17px; }
-  .page-corner-tl { top: 18px; left: 18px; }
-  .page-corner-tr { top: 18px; right: 18px; }
-  .page-corner-bl { bottom: 18px; left: 18px; }
-  .page-corner-br { bottom: 18px; right: 18px; }
-  .book-controls { margin-top: 2px; gap: 12px; }
-  .book-btn { width: 38px; height: 38px; font-size: 1.55rem; }
-  .book-hint { font-size: .66rem; }
-}
-
-
-
-/* ---------- Final Arabic pamphlet direction ---------- */
-#book {
-  direction: rtl;
-}
-
-.pamphlet-controls,
-.book-controls,
-.flip-controls {
-  direction: rtl;
-}
-
-@media (max-width: 700px) {
-  #book {
-    direction: rtl;
-  }
-}
-
-/* ---------- ضبط النسخة النهائية للكتاب ---------- */
-.book-controls {
-  justify-content: center;
-}
-
-.book-next { order: 1; }
-.page-counter { order: 2; }
-.book-prev { order: 3; }
-
-@media (max-width: 700px) {
-  .flipbook-stage {
-    justify-content: flex-start;
-    padding-top: 6px;
-  }
-
-  .book-shell {
-    width: 97vw;
-    height: calc(100vh - 150px);
-    max-height: 740px;
-    min-height: 430px;
-  }
-
-  .book-controls {
-    margin-top: 0;
-    transform: translateY(-2px);
-  }
-
-  .book-hint {
-    display: none;
-  }
-}
-
-
-/* ---------- غلاف البامفلت + الكتاب المغلق ---------- */
-.book-cover,
-.book-back-cover {
-  background: #fffdf8;
-  overflow: hidden;
-}
-
-.cover-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background:
-    radial-gradient(circle at 50% 18%, rgba(255,255,255,.98), rgba(234,242,252,.96) 58%, rgba(215,229,247,.98));
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-}
-
-.cover-image {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.cover-image > img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.cover-placeholder-content {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: var(--navy);
-  font-family: var(--font-display, 'El Messiri', sans-serif);
-  pointer-events: none;
-}
-
-.cover-image:not(.cover-placeholder) .cover-placeholder-content {
-  display: none;
-}
-
-.cover-trophy {
-  font-size: clamp(3rem, 8vw, 5.5rem);
-  margin-bottom: 12px;
-  filter: drop-shadow(0 8px 12px rgba(20,51,94,.15));
-}
-
-.cover-title {
-  font-size: clamp(2rem, 5vw, 3.6rem);
-  font-weight: 800;
-  color: var(--navy);
-}
-
-.cover-year {
-  margin-top: 2px;
-  font-size: clamp(1.7rem, 4vw, 2.7rem);
-  font-weight: 800;
-  color: var(--gold);
-}
-
-.cover-open {
-  margin-top: 34px;
-  padding: 9px 20px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.78);
-  border: 1px solid rgba(20,51,94,.12);
-  color: var(--steel);
-  font-size: .85rem;
-  box-shadow: 0 7px 18px rgba(20,51,94,.08);
-}
-
-.back-cover-inner {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background:
-    radial-gradient(circle at 50% 30%, rgba(255,255,255,.98), rgba(234,242,252,.96) 58%, rgba(215,229,247,.98));
-  color: var(--navy);
-  text-align: center;
-  font-family: var(--font-display, 'El Messiri', sans-serif);
-}
-
-/* الغلاف هو أول ما يظهر، فلا نعرض أدوات التحكم وهو مغلق */
-.book-controls.on-cover {
-  visibility: hidden;
-  pointer-events: none;
-}
-
-/* تحسين شكل الكتاب عند الغلاف: بدون أي شريط/كومة صفحات جانبية قديمة */
-.flipbook-stage .stf__block {
-  box-shadow: none;
-}
-
-@media (min-width: 861px) {
-  .book-shell {
-    width: min(98vw, 1500px);
-    height: min(84vh, 920px);
-  }
-}
-
-@media (max-width: 700px) {
-  .book-shell {
-    width: 97vw;
-    height: calc(100vh - 150px);
-    max-height: 740px;
-    min-height: 430px;
-  }
-
-  /* على الموبايل: سهم الصفحة التالية يكون على اليسار،
-     لأن فتح الكتاب العربي يبدأ من الجهة اليسرى. */
-  .book-controls {
-    direction: ltr;
-  }
-
-  .book-next { order: 1; }
-  .page-counter { order: 2; }
-  .book-prev { order: 3; }
-
-  .cover-open {
-    margin-top: 26px;
-    font-size: .78rem;
-  }
-}
-
-
-/* ---------- صور صفحات البامفلت ---------- */
-.page-image-inner {
-  padding: 0 !important;
-  overflow: hidden;
-  background: #fff;
-}
-
-.pamphlet-page-image {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: contain;
-  object-position: center;
-  background: #fff;
 }
