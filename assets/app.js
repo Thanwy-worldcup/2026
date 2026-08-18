@@ -127,49 +127,6 @@ function renderTicker(changeLog, schedule) {
   });
 }
 
-// ---------- كتاب البامفلت الحقيقي (StPageFlip) ----------
-function initFlipbook() {
-  const bookEl = document.getElementById('stpageflip-book');
-  if (!bookEl || !window.St) return;
-
-  const pageFlip = new St.PageFlip(bookEl, {
-    width: 500,
-    height: 700,
-    size: 'stretch',
-    minWidth: 280,
-    maxWidth: 650,
-    minHeight: 400,
-    maxHeight: 900,
-    showCover: true,
-    usePortrait: true,
-    mobileScrollSupport: true,
-    maxShadowOpacity: 0.5,
-  });
-
-  pageFlip.loadFromHTML(bookEl.querySelectorAll('.page'));
-
-  const counterCur = document.querySelector('[data-flip-current]');
-  const counterTotal = document.querySelector('[data-flip-total]');
-  if (counterTotal) counterTotal.textContent = pageFlip.getPageCount();
-
-  function updateCounter() {
-    if (counterCur) counterCur.textContent = pageFlip.getCurrentPageIndex() + 1;
-  }
-  updateCounter();
-  pageFlip.on('flip', updateCounter);
-
-  // ملحوظة: بما إن الكتاب كله معكوس بصريًا (scaleX(-1)) عشان يبقى اتجاهه
-  // عربي، "التالي" الفعلي في المكتبة (flipNext) هو اللي بيحرك الصفحة صح
-  // بصريًا لليمين — يعني زرار "التالي" بتاعنا بيستدعي flipNext() عادي
-  // ومفيش داعي نعكس المنطق، العكس البصري كفاية لوحده.
-  document.querySelectorAll('[data-flip-prev]').forEach(b => {
-    b.addEventListener('click', () => pageFlip.flipPrev());
-  });
-  document.querySelectorAll('[data-flip-next]').forEach(b => {
-    b.addEventListener('click', () => pageFlip.flipNext());
-  });
-}
-
 // ---------- فتح/قفل قائمة الموبايل ----------
 function toggleNav() {
   const nav = document.getElementById('mainNav');
@@ -188,25 +145,6 @@ function markActiveNav() {
   document.querySelectorAll('nav.main-nav a').forEach(a => {
     if (a.getAttribute('href') === current) a.classList.add('active');
   });
-}
-
-// ---------- تفعيل رابط القسم الحالي في مینی نافيجيشن البامفلت ----------
-function initMiniNavSpy() {
-  const links = document.querySelectorAll('[data-mini-nav] a');
-  const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href')));
-  if (!links.length || !sections.length) return;
-
-  const setActive = (id) => {
-    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) setActive(entry.target.id);
-    });
-  }, { rootMargin: '-140px 0px -60% 0px', threshold: 0 });
-
-  sections.forEach(s => { if (s) observer.observe(s); });
 }
 
 // ---------- تحديد لون ورمز كل فريق من اسمه ----------
